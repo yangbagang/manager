@@ -103,7 +103,7 @@ class LoginController {
                 return
             }
         }
-        systemLogService.save(username, username + "登录", NetUtil.getUserIP(request), "1")
+        systemLogService.save(username, username + "登录", NetUtil.getUserIP(request), "安全")
         redirect uri: SpringSecurityUtils.securityConfig.successHandler.defaultTargetUrl
     }
 

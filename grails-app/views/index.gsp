@@ -99,7 +99,13 @@
                         <li class="nav-header">Main</li>
                         <li><a class="ajax-link" href="${createLink(uri: '/main')}"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
                         </li>
-                        <li><a class="ajax-link" href="ui.html"><i class="glyphicon glyphicon-eye-open"></i><span> UI Features</span></a>
+                        <li class="accordion">
+                            <a href="#"><i class="glyphicon glyphicon-user"></i><span> 系统管理</span></a>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a class="ajax-link" href="${createLink(uri: '/systemUser')}">管理员设置</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/systemRole')}">角色设置</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/systemLog')}">系统日志</a></li>
+                            </ul>
                         </li>
                         <li><a class="ajax-link" href="form.html"><i
                                 class="glyphicon glyphicon-edit"></i><span> Forms</span></a></li>
