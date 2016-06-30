@@ -5,12 +5,7 @@ class UserAddressInfo {
     static belongsTo = [userInfo: UserBaseInfo]
 
     static constraints = {
-        name()
-        province()
-        city()
-        area()
-        address()
-        isDefault()
+
     }
 
     String province

@@ -124,7 +124,7 @@ function loadAjaxContent(url){
             alert(errorThrown);
         },
         dataType: "html",
-        async: false
+        async: true
     });
 }
 

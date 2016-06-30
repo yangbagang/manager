@@ -1,5 +1,8 @@
 package com.ybg.rp.manager.system
 
+import com.ybg.rp.manager.vo.AjaxPagingVo
+import grails.converters.JSON
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -8,9 +11,22 @@ class SystemLogController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 15, 100)
-        respond SystemLog.list(params), model:[systemLogCount: SystemLog.count()]
+    def index() {
+        //render html for ajax
+    }
+
+    def list() {
+        def data = SystemLog.list(params)
+        def count = SystemLog.count()
+
+        def result = new AjaxPagingVo()
+        result.data = data
+        result.draw = Integer.valueOf(params.draw)
+        result.error = ""
+        result.success = true
+        result.recordsTotal = count
+        result.recordsFiltered = count
+        render result as JSON
     }
 
     def show(SystemLog systemLog) {

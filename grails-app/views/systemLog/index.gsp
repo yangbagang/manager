@@ -25,11 +25,11 @@
 <div class="box-content">
     <form class="form-inline" role="form" action="#">
         <div class="form-group">
-            <label class="control-label" for="inputSearch">名称:</label>
-            <input type="text" class="form-control" id="inputSearch">
+            <label class="control-label" for="name">名称:</label>
+            <input type="text" class="form-control" id="name">
             <input type="button" class="btn btn-primary" value="查询" id="sercher"/>
         </div>
-    </form>
+    </form><br />
     <table class="table table-striped table-bordered search_table" id="dataTable"></table>
 </div>
 </div>
@@ -62,26 +62,30 @@
             "paginate": true,
             "processing": true,
             "pagingType": "full_numbers",
+            "serverSide": true,
             "bAutoWidth": true,
             "ajax": {
-                "url":"building/center/dataCenter/getIncomeSettlementByMonth"
+                "url":"systemLog/list",
+                "dataSrc": "data",
+                "data": function ( d ) {
+                    //添加额外的参数传给服务器
+                    d.name = $("#name").val();
+                }
             },
-            "fnServerParams": function (aoData) {
-                aoData.push(
-                        { "name": "incomeMonth", "value": $("#incomeMonth").val()})
-            },
-            "order": [[2, 'desc']], // 默认排序(第三列降序, asc升序)
+            "order": [[0, 'desc']], // 默认排序(第三列降序, asc升序)
             "columns": [
-                { "title": "月份", "data" : function (data) {
-                    return data.incomeYear + "年" + data.incomeMonth + "月";
-                }, "orderable": false, "searchable": false },
-                { "title": "我的收益", "data" : "buildMoney", "orderable": false, "searchable": false },
-                { "title": "云8销售金额", "data" : "saleMoney", "orderable": true, "searchable": false },
-                { "title": "收益结算日期", "data" : "incomeTime", "orderable": false, "searchable": false },
-                { "title": "详情", "data" : function (data) {
-
-                    return '<a href="#" onclick="showDatils(this.title,this.id)" id="'+data.incomeYear+'" title="'+data.incomeMonth+'" data-toggle="modal" >查看每店明细</a>';
-
+                { "title": "时间", "data" : "operationDate", "orderable": true, "searchable": false },
+                { "title": "操作人", "data" : "operator", "orderable": true, "searchable": false },
+                { "title": "操作内容", "data" : "operationMark", "orderable": true, "searchable": false },
+                { "title": "IP", "data" : "loginIp", "orderable": true, "searchable": false },
+                { "title": "类型", "data" : "type", "orderable": false, "searchable": false },
+                { "title": "操作", "data" : function (data) {
+                    return '<a class="btn btn-success" href="showDatils(this.id)" title="查看" id="'+data.id+'">' +
+                           '<i class="glyphicon glyphicon-zoom-in icon-white"></i></a>&nbsp;&nbsp;' +
+                           '<a class="btn btn-info" href="showDatils(this.id)" title="编辑" id="'+data.id+'">' +
+                           '<i class="glyphicon glyphicon-edit icon-white"></i></a>&nbsp;&nbsp;' +
+                           '<a class="btn btn-danger" href="deleteInfo(this.id)" title="删除" id="'+data.id+'">' +
+                           '<i class="glyphicon glyphicon-trash icon-white"></i></a>';
                 }, "orderable": false, "searchable": false }
             ],
             "language": {
@@ -110,7 +114,7 @@
         });
 
         $("#buttonName").click(function () {
-            window.location.href = "building/center/dataCenter/tobuildingBenifitName";
+            window.location.href = "systemLog/list";
         });
     });
 
@@ -151,17 +155,5 @@
         //弹窗
         $("#shopDatilsButton").click();
     }
-
-    $(function () {
-        $('.form_date').datetimepicker({
-            language: 'zh-CN',
-            format: 'yyyy-mm',
-            autoclose: 1,
-            todayHighlight: 1,
-            startView: 3,
-            minView: 3,
-            forceParse: 0
-        });
-    });
 
 </script>

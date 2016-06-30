@@ -3,10 +3,6 @@ package com.ybg.rp.manager.base
 class GoodsBaseInfo {
 
     static constraints = {
-        name()
-        brand()
-        specifications()
-        basePrice()
         picId nullable: true
     }
 

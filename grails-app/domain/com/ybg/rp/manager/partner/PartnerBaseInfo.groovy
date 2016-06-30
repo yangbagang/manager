@@ -5,23 +5,6 @@ import com.ybg.rp.manager.system.SystemUser
 class PartnerBaseInfo {
 
     static constraints = {
-        companyName()
-        companyCode()
-        bornDate()
-        registMoney()
-        phoneNum()
-        province()
-        city()
-        county()
-        address()
-        contactName()
-        contactPhone()
-        contactMail()
-        createTime()
-        status()
-        bankName()
-        accountName()
-        accountNum()
         admin nullable: true
         auditTime nullable: true
     }

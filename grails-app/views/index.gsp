@@ -23,6 +23,7 @@
     <asset:stylesheet src="jquery.iphone.toggle.css" />
     <asset:stylesheet src="uploadify.css" />
     <asset:stylesheet src="animate.min.css" />
+    <asset:stylesheet src="jquery.dataTables.min.css" />
 
     <!-- jQuery -->
     <script src="static/bower_components/jquery/jquery.min.js"></script>

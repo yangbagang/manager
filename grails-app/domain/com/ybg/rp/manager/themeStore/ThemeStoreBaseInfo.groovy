@@ -7,16 +7,7 @@ class ThemeStoreBaseInfo {
     static belongsTo = [building: BuildingBaseInfo]
 
     static constraints = {
-        name()
-        status()
-        createTime()
-        openTime()
-        longitude()
-        latitude()
-        position()
-        province()
-        city()
-        county()
+
     }
 
     String name
