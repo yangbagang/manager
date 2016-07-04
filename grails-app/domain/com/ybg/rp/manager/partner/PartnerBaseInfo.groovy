@@ -28,4 +28,6 @@ class PartnerBaseInfo {
     String accountNum
     SystemUser admin
     Date auditTime
+    Long pid = 0
+    Short type = 0
 }

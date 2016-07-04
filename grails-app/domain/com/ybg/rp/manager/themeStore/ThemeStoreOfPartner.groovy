@@ -12,6 +12,8 @@ class ThemeStoreOfPartner {
     }
 
     Float sale
+    Date fromDate
+    Date toDate
     SystemUser lastUpdateUser
     Date lastUpdateTime
 

@@ -19,4 +19,6 @@ class VendCabinetInfo {
      * 状态：1：启用；0：废弃
      */
     Short status
+
+    String numInfo//逗号分开的各层数量序列
 }

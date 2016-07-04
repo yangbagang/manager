@@ -4,7 +4,7 @@ import com.ybg.rp.manager.themeStore.ThemeStoreGoodsInfo
 
 class VendLayerTrackGoods {
 
-    static belongsTo = [vendMachine: VendMachineInfo, goods: ThemeStoreGoodsInfo]
+    static belongsTo = [vendMachine: VendMachineInfo ]
 
     static constraints = {
     }
@@ -14,6 +14,8 @@ class VendLayerTrackGoods {
 
     /**第几层（层数）*/
     String layer
+
+    ThemeStoreGoodsInfo goods//在售商品
 
     /**在售状态(0：是,1：否)*/
     Short sellStatus
