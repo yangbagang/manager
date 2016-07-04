@@ -1,10 +1,13 @@
 package com.ybg.rp.manager.system
 
+import grails.databinding.BindingFormat
+
 class SystemLog {
 
     /**操作人*/
     String operator
     /**操作时间*/
+    @BindingFormat("yyyy-MM-dd HH:mm:ss")
     Date operationDate
     /**操作内容*/
     String operationMark

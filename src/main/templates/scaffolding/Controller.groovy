@@ -1,107 +1,78 @@
 <%=packageName ? "package ${packageName}" : ''%>
 
+import com.ybg.rp.manager.vo.AjaxPagingVo
+import grails.converters.JSON
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class ${className}Controller {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond ${className}.list(params), model:[${propertyName}Count: ${className}.count()]
+    def index() {
+        //render html for ajax
+    }
+
+    def list() {
+        def data = ${className}.list(params)
+        def count = ${className}.count()
+
+        def result = new AjaxPagingVo()
+        result.data = data
+        result.draw = Integer.valueOf(params.draw)
+        result.error = ""
+        result.success = true
+        result.recordsTotal = count
+        result.recordsFiltered = count
+        render result as JSON
     }
 
     def show(${className} ${propertyName}) {
-        respond ${propertyName}
-    }
-
-    def create() {
-        respond new ${className}(params)
+        render ${propertyName} as JSON
     }
 
     @Transactional
     def save(${className} ${propertyName}) {
+        def result = [:]
         if (${propertyName} == null) {
-            transactionStatus.setRollbackOnly()
-            notFound()
+            result.success = false
+            result.msg = "${propertyName} is null."
+            render result as JSON
             return
         }
 
         if (${propertyName}.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond ${propertyName}.errors, view:'create'
+            result.success = false
+            result.msg = ${propertyName}.errors
+            render result as JSON
             return
         }
 
         ${propertyName}.save flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: '${propertyName}.label', default: '${className}'), ${propertyName}.id])
-                redirect ${propertyName}
-            }
-            '*' { respond ${propertyName}, [status: CREATED] }
-        }
-    }
-
-    def edit(${className} ${propertyName}) {
-        respond ${propertyName}
-    }
-
-    @Transactional
-    def update(${className} ${propertyName}) {
-        if (${propertyName} == null) {
-            transactionStatus.setRollbackOnly()
-            notFound()
-            return
-        }
-
-        if (${propertyName}.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond ${propertyName}.errors, view:'edit'
-            return
-        }
-
-        ${propertyName}.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: '${propertyName}.label', default: '${className}'), ${propertyName}.id])
-                redirect ${propertyName}
-            }
-            '*'{ respond ${propertyName}, [status: OK] }
-        }
+        result.success = true
+        result.msg = ""
+        render result as JSON
     }
 
     @Transactional
     def delete(${className} ${propertyName}) {
-
+        def result = [:]
         if (${propertyName} == null) {
-            transactionStatus.setRollbackOnly()
-            notFound()
+            result.success = false
+            result.msg = "${propertyName} is null."
+            render result as JSON
             return
         }
 
         ${propertyName}.delete flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: '${propertyName}.label', default: '${className}'), ${propertyName}.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
+        result.success = true
+        result.msg = ""
+        render result as JSON
     }
 
-    protected void notFound() {
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: '${propertyName}.label', default: '${className}'), params.id])
-                redirect action: "index", method: "GET"
-            }
-            '*'{ render status: NOT_FOUND }
-        }
-    }
 }

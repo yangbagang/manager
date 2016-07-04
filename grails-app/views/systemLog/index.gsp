@@ -1,4 +1,3 @@
-<g:set var="entityName" value="${message(code: 'systemLog.label', default: 'SystemLog')}" />
 <div>
     <ul class="breadcrumb">
         <li>
@@ -11,10 +10,8 @@
 </div>
 <div class="box-inner">
     <div class="box-header well" data-original-title="">
-        <h2><i class="glyphicon glyphicon-user"></i> <g:message code="default.list.label" args="[entityName]" /></h2>
+        <h2><i class="glyphicon glyphicon-user"></i> 系统日志</h2>
         <div class="box-icon">
-            <a href="#" class="btn btn-plus btn-round btn-default"><i
-                    class="glyphicon glyphicon-plus"></i></a>
             <a href="#" class="btn btn-minimize btn-round btn-default"><i
                     class="glyphicon glyphicon-chevron-up"></i></a>
             <a href="#" class="btn btn-close btn-round btn-default"><i
@@ -23,13 +20,7 @@
     </div>
 </div>
 <div class="box-content">
-    <form class="form-inline" role="form" action="#">
-        <div class="form-group">
-            <label class="control-label" for="name">名称:</label>
-            <input type="text" class="form-control" id="name">
-            <input type="button" class="btn btn-primary" value="查询" id="sercher"/>
-        </div>
-    </form><br />
+    <div id="msgInfo" class="box-content alerts"></div>
     <table class="table table-striped table-bordered search_table" id="dataTable"></table>
 </div>
 </div>
@@ -37,23 +28,14 @@
      aria-hidden="true">
 
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3>Settings</h3>
-            </div>
-            <div class="modal-body">
-                <p>Here settings can be configured...</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
-                <a href="#" class="btn btn-primary" data-dismiss="modal">Save changes</a>
-            </div>
+        <div class="modal-content" id="modal-content">
+
         </div>
     </div>
 </div>
 
 <script>
+    var gridTable;
     $(document).ready(function(){
         var table=$('#dataTable').DataTable({
             "bLengthChange": true,
@@ -80,12 +62,8 @@
                 { "title": "IP", "data" : "loginIp", "orderable": true, "searchable": false },
                 { "title": "类型", "data" : "type", "orderable": false, "searchable": false },
                 { "title": "操作", "data" : function (data) {
-                    return '<a class="btn btn-success" href="showDatils(this.id)" title="查看" id="'+data.id+'">' +
-                           '<i class="glyphicon glyphicon-zoom-in icon-white"></i></a>&nbsp;&nbsp;' +
-                           '<a class="btn btn-info" href="showDatils(this.id)" title="编辑" id="'+data.id+'">' +
-                           '<i class="glyphicon glyphicon-edit icon-white"></i></a>&nbsp;&nbsp;' +
-                           '<a class="btn btn-danger" href="deleteInfo(this.id)" title="删除" id="'+data.id+'">' +
-                           '<i class="glyphicon glyphicon-trash icon-white"></i></a>';
+                    return '<a class="btn btn-success" href="javascript:showInfo('+data.id+');" title="查看">' +
+                           '<i class="glyphicon glyphicon-zoom-in icon-white"></i></a>';
                 }, "orderable": false, "searchable": false }
             ],
             "language": {
@@ -104,56 +82,59 @@
                 }
             }
         });
-        //查询 重新加载
-        $("#sercher").click(function(){
-            table.ajax.reload(null, false);
-        });
-
-        $("#buttonmonth").click(function () {
-            window.location.reload();
-        });
-
-        $("#buttonName").click(function () {
-            window.location.href = "systemLog/list";
-        });
+        gridTable = table;
     });
 
-    function showDatils(incomeMonth,incomeYear) {
+    function showInfo(id) {
+        var url = "../systemLog/show/" + id;
         $.ajax({
-            url:'building/center/dataCenter/getbuildingOpenearList',
-            data:{'incomeMonth' : incomeMonth, 'incomeYear' : incomeYear},
-            type:'get',
-            dataType:'json',
-            success:function(data){
-                if(data.success){
-                    var _html = '';
-                    $("#shopDatilTable").html("");
-                    $.each(data.data,function (index,datils){
-                        _html += '<tr>';
-                        _html += '<td>'+datils.incomeYear+'年'+datils.incomeMonth+'月</td>';
-                        _html += '<td>'+datils.cloud8Name+'</td>';
-                        _html += '<td>'+datils.buildMoney+'</td>';
-                        _html += '<td>'+datils.saleMoney+'</td>';
-                        _html += '<td>'+datils.detailName+'</td>';
-                        _html += '<td>'+datils.detailCity+'</td>';
-                        var stutas = "";
-                        if(datils.incomeStatus == 1){
-                            stutas = "等待结算";
-                        }
-                        if(datils.incomeStatus == 2){
-                            stutas = "已结算";
-                        }
-                        _html += '<td>'+stutas+'</td>';
-                        _html += '</tr>';
-                    });
-                    $("#shopDatilTable").html(_html);
-                }else{
-                    alert(data.msg);
-                }
+            type: "GET",
+            url: url,
+            success: function (result) {
+                var content = "" +
+                        '<div class="modal-header">' +
+                        '<button type="button" class="close" data-dismiss="modal">×</button>' +
+                        '<h3>系统日志详情</h3>' +
+                        '</div>' +
+                        '<div class="modal-body">' +
+                        '<form id="infoForm" role="form">' +
+                        '<div class="form-group">' +
+                        '<label for="operationDate">时间</label>' +
+                        '<input type="text" class="form-control" id="operationDate" name="operationDate" readonly="readonly" value="'+result.operationDate+'">' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="operationMark">内容</label>' +
+                        '<input type="text" class="form-control" id="operationMark" name="operationMark" readonly="readonly" value="'+result.operationMark+'">' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="operator">操作人</label>' +
+                        '<input type="text" class="form-control" id="operator" name="operator" readonly="readonly" value="'+result.operator+'">' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="loginIp">IP</label>' +
+                        '<input type="text" class="form-control" id="loginIp" name="loginIp" readonly="readonly" value="'+result.loginIp+'">' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="remark">备注</label>' +
+                        '<input type="text" class="form-control" id="remark" name="remark" readonly="readonly" value="'+result.remark+'">' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="type">类型</label>' +
+                        '<input type="text" class="form-control" id="type" name="type" readonly="readonly" value="'+result.type+'">' +
+                        '</div>' +
+                        '</form>' +
+                        '</div>' +
+                        '<div class="modal-footer">' +
+                        '<a href="#" class="btn btn-default" data-dismiss="modal">关闭</a>' +
+                        '</div>';
+                $("#modal-content").html("");
+                $("#modal-content").html(content);
+                $('#myModal').modal('show');
+            },
+            error: function (data) {
+                showErrorInfo(data.responseText);
             }
         });
-        //弹窗
-        $("#shopDatilsButton").click();
     }
 
 </script>
