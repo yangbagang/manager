@@ -274,23 +274,22 @@
         var url = "../systemLog/delete/" + id;
         $.ajax({
             type: "DELETE",
-            dataType: "json",
             url: url,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
                 var content = "";
-                if (isSuccess) {
+                if (eval(isSuccess)) {
+                    content = "" +
+                            '<div class="alert alert-danger">' +
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                            errorMsg +
+                            '</div>';
+                } else {
                     content = "" +
                             '<div class="alert alert-success">' +
                             '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                             '删除完成' +
-                            '</div>';
-                } else {
-                    content = "" +
-                            '<div class="alert alert-danger">' +
-                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                            JSON.stringify(errorMsg) +
                             '</div>';
                 }
                 $("#myModal").modal('hide');
@@ -314,24 +313,24 @@
         var url = "../systemLog/save";
         $.ajax({
             type: "POST",
-            dataType: "json",
+            dataType: "html",
             url: url,
             data: $('#infoForm').serialize(),
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
                 var content = "";
-                if (isSuccess) {
+                if (eval(isSuccess)) {
+                    content = "" +
+                            '<div class="alert alert-danger">' +
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                            errorMsg +
+                            '</div>';
+                } else {
                     content = "" +
                             '<div class="alert alert-success">' +
                             '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                             '操作完成' +
-                            '</div>';
-                } else {
-                    content = "" +
-                            '<div class="alert alert-danger">' +
-                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                            JSON.stringify(errorMsg) +
                             '</div>';
                 }
                 $("#myModal").modal('hide');

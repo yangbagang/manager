@@ -4,13 +4,13 @@
             <a href="#">系统管理</a>
         </li>
         <li>
-            <a href="#">系统日志</a>
+            <a href="#">管理员</a>
         </li>
     </ul>
 </div>
 <div class="box-inner">
     <div class="box-header well" data-original-title="">
-        <h2><i class="glyphicon glyphicon-user"></i> 系统日志</h2>
+        <h2><i class="glyphicon glyphicon-user"></i> 管理员</h2>
         <div class="box-icon">
             <a href="javascript:addInfo();" class="btn btn-plus btn-round btn-default"><i
                     class="glyphicon glyphicon-plus"></i></a>
@@ -42,7 +42,6 @@
         </div>
     </div>
 </div>
-
 <script>
     var gridTable;
     $(document).ready(function(){
@@ -56,20 +55,23 @@
             "serverSide": true,
             "bAutoWidth": true,
             "ajax": {
-                "url":"systemLog/list",
+                "url":"systemUser/list",
                 "dataSrc": "data",
                 "data": function ( d ) {
                     //添加额外的参数传给服务器
                     d.name = $("#name").val();
                 }
             },
-            "order": [[0, 'desc']], // 默认排序(第三列降序, asc升序)
+            "order": [[4, 'desc']], // 默认排序(第三列降序, asc升序)
             "columns": [
-                { "title": "时间", "data" : "operationDate", "orderable": true, "searchable": false },
-                { "title": "操作人", "data" : "operator", "orderable": true, "searchable": false },
-                { "title": "操作内容", "data" : "operationMark", "orderable": true, "searchable": false },
-                { "title": "IP", "data" : "loginIp", "orderable": true, "searchable": false },
-                { "title": "类型", "data" : "type", "orderable": false, "searchable": false },
+                { "title": "用户名", "data" : "username", "orderable": true, "searchable": false },
+                { "title": "姓名", "data" : "realName", "orderable": true, "searchable": false },
+                { "title": "邮箱", "data" : "email", "orderable": true, "searchable": false },
+                { "title": "建创时间", "data" : "createTime", "orderable": true, "searchable": false },
+                { "title": "更新时间", "data" : "updateTime", "orderable": true, "searchable": false },
+                { "title": "是否启用", "data" : function (data) {
+                    return data.enabled ? "己启用" : "";
+                }, "orderable": false, "searchable": false},
                 { "title": "操作", "data" : function (data) {
                     return '<a class="btn btn-success" href="javascript:showInfo('+data.id+');" title="查看">' +
                             '<i class="glyphicon glyphicon-zoom-in icon-white"></i></a>&nbsp;&nbsp;' +
@@ -107,33 +109,29 @@
         var content = "" +
                 '<div class="modal-header">' +
                 '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                '<h3>新建</h3>' +
+                '<h3>新建管理员</h3>' +
                 '</div>' +
                 '<div class="modal-body">' +
                 '<form id="infoForm" role="form">' +
                 '<div class="form-group">' +
-                '<label for="operationDate">Operation Date</label>' +
-                '<input type="text" class="form-control" id="operationDate" name="operationDate" placeholder="Operation Date">' +
+                '<label for="username">用户名</label>' +
+                '<input type="text" class="form-control" id="username" name="username" placeholder="用户名">' +
                 '</div>' +
                 '<div class="form-group">' +
-                '<label for="operationMark">Operation Mark</label>' +
-                '<input type="text" class="form-control" id="operationMark" name="operationMark" placeholder="Operation Mark">' +
+                '<label for="realName">姓名</label>' +
+                '<input type="text" class="form-control" id="realName" name="realName" placeholder="姓名">' +
                 '</div>' +
                 '<div class="form-group">' +
-                '<label for="operator">Operator</label>' +
-                '<input type="text" class="form-control" id="operator" name="operator" placeholder="operator">' +
+                '<label for="password">密码</label>' +
+                '<input type="password" class="form-control" id="password" name="password" placeholder="密码">' +
                 '</div>' +
                 '<div class="form-group">' +
-                '<label for="loginIp">Login Ip</label>' +
-                '<input type="text" class="form-control" id="loginIp" name="loginIp" placeholder="Login Ip">' +
+                '<label for="loginIp">邮箱</label>' +
+                '<input type="email" class="form-control" id="email" name="email" placeholder="邮箱">' +
                 '</div>' +
                 '<div class="form-group">' +
-                '<label for="remark">Remark</label>' +
-                '<input type="text" class="form-control" id="remark" name="remark" placeholder="Remark">' +
-                '</div>' +
-                '<div class="form-group">' +
-                '<label for="type">Type</label>' +
-                '<input type="text" class="form-control" id="type" name="type" placeholder="Type">' +
+                '<label for="enabled">是否启用</label>' +
+                '<input type="checkbox" id="enableAccount" name="enableAccount" value="1">' +
                 '</div>' +
                 '</form>' +
                 '</div>' +
@@ -147,42 +145,42 @@
     }
 
     function showInfo(id) {
-        var url = "../systemLog/show/" + id;
+        var url = "../systemUser/show/" + id;
         $.ajax({
             type: "GET",
             url: url,
             success: function (result) {
+                var checkFlag = result.enabled ? 'checked="checked"' : '';
                 var content = "" +
                         '<div class="modal-header">' +
                         '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                        '<h3>详情</h3>' +
+                        '<h3>管理员详情</h3>' +
                         '</div>' +
                         '<div class="modal-body">' +
                         '<form id="infoForm" role="form">' +
                         '<div class="form-group">' +
-                        '<label for="operationDate">Operation Date</label>' +
-                        '<input type="text" class="form-control" id="operationDate" name="operationDate" readonly="readonly" value="'+result.operationDate+'">' +
+                        '<label for="username">用户名</label>' +
+                        '<input type="text" class="form-control" id="username" name="username" readonly="readonly" value="'+result.username+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="operationMark">Operation Mark</label>' +
-                        '<input type="text" class="form-control" id="operationMark" name="operationMark" readonly="readonly" value="'+result.operationMark+'">' +
+                        '<label for="realName">姓名</label>' +
+                        '<input type="text" class="form-control" id="realName" name="realName" readonly="readonly" value="'+result.realName+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="operator">Operator</label>' +
-                        '<input type="text" class="form-control" id="operator" name="operator" readonly="readonly" value="'+result.operator+'">' +
+                        '<label for="email">邮箱</label>' +
+                        '<input type="email" class="form-control" id="email" name="email" readonly="readonly" value="'+result.email+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="loginIp">Login Ip</label>' +
-                        '<input type="text" class="form-control" id="loginIp" name="loginIp" readonly="readonly" value="'+result.loginIp+'">' +
+                        '<label for="createTime">创建时间</label>' +
+                        '<input type="text" class="form-control" id="createTime" name="createTime" readonly="readonly" value="'+result.createTime+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="remark">Remark</label>' +
-                        '<input type="text" class="form-control" id="remark" name="remark" readonly="readonly" value="'+result.remark+'">' +
+                        '<label for="updateTime">最后更新时间</label>' +
+                        '<input type="text" class="form-control" id="updateTime" name="updateTime" readonly="readonly" value="'+result.updateTime+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="type">Type</label>' +
-                        '<input type="text" class="form-control" id="type" name="type" readonly="readonly" value="'+result.type+'">' +
-                        '</div>' +
+                        '<label for="enabled">是否启用</label>' +
+                        '<input type="checkbox" id="enabled" name="enabled" disabled="disabled" ' + checkFlag + '></div>' +
                         '</form>' +
                         '</div>' +
                         '<div class="modal-footer">' +
@@ -199,42 +197,39 @@
     }
 
     function editInfo(id) {
-        var url = "../systemLog/show/" + id;
+        var url = "../systemUser/show/" + id;
         $.ajax({
             type: "GET",
             url: url,
             success: function (result) {
+                var checkFlag = result.enabled ? 'checked="checked"' : '';
                 var content = "" +
                         '<div class="modal-header">' +
                         '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                        '<h3>编辑</h3>' +
+                        '<h3>编辑管理员</h3>' +
                         '</div>' +
                         '<div class="modal-body">' +
                         '<form id="infoForm" role="form">' +
                         '<input type="hidden" id="id" name="id" value="' + result.id + '">' +
                         '<div class="form-group">' +
-                        '<label for="operationDate">Operation Date</label>' +
-                        '<input type="text" class="form-control" id="operationDate" name="operationDate" value="'+result.operationDate+'">' +
+                        '<label for="username">用户名</label>' +
+                        '<input type="text" class="form-control" id="username" name="username" value="'+result.username+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="operationMark">Operation Mark</label>' +
-                        '<input type="text" class="form-control" id="operationMark" name="operationMark" value="'+result.operationMark+'">' +
+                        '<label for="realName">姓名</label>' +
+                        '<input type="text" class="form-control" id="realName" name="realName" value="'+result.realName+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="operator">Operator</label>' +
-                        '<input type="text" class="form-control" id="operator" name="operator" value="'+result.operator+'">' +
+                        '<label for="email">邮箱</label>' +
+                        '<input type="text" class="form-control" id="email" name="email" value="'+result.email+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="loginIp">Login Ip</label>' +
-                        '<input type="text" class="form-control" id="loginIp" name="loginIp" value="'+result.loginIp+'">' +
+                        '<label for="password">密码</label>' +
+                        '<input type="password" class="form-control" id="password" name="password" value="'+result.password+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="remark">Remark</label>' +
-                        '<input type="text" class="form-control" id="remark" name="remark" value="'+result.remark+'">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="type">Type</label>' +
-                        '<input type="text" class="form-control" id="type" name="type" value="'+result.type+'">' +
+                        '<label for="enableAccount">是否启用</label>' +
+                        '<input type="checkbox" id="enableAccount" name="enableAccount" value="1" ' + checkFlag + '>' +
                         '</div>' +
                         '</form>' +
                         '</div>' +
@@ -271,7 +266,7 @@
     }
 
     function postAjaxRemove(id) {
-        var url = "../systemLog/delete/" + id;
+        var url = "../systemUser/delete/" + id;
         $.ajax({
             type: "DELETE",
             dataType: "json",
@@ -311,7 +306,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../systemLog/save";
+        var url = "../systemUser/save";
         $.ajax({
             type: "POST",
             dataType: "json",

@@ -1,5 +1,6 @@
 package com.ybg.rp.manager.system
 
+import grails.databinding.BindingFormat
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -25,8 +26,10 @@ class SystemUser implements Serializable {
     /** 电子邮件*/
     String email
     /** 创建时间*/
+    @BindingFormat("yyyy-MM-dd HH:mm:ss")
     Date createTime
     /** 更新时间*/
+    @BindingFormat("yyyy-MM-dd HH:mm:ss")
     Date updateTime
     /** 头像*/
     String avatarUrl
