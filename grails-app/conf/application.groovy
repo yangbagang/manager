@@ -29,3 +29,5 @@ jcaptcha.jcaptchaName = 'jcaptcha'
 jcaptcha.enabled = true
 jcaptcha.time = 5
 jcaptcha.allowedNumberOfAttempts = 3
+
+grails.json.legacy.builder = false

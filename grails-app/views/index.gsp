@@ -97,8 +97,8 @@
 
                     </div>
                     <ul class="nav nav-pills nav-stacked main-menu">
-                        <li class="nav-header">Main</li>
-                        <li><a class="ajax-link" href="${createLink(uri: '/main')}"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
+                        <li class="nav-header">菜单</li>
+                        <li><a class="ajax-link" href="${createLink(uri: '/main')}"><i class="glyphicon glyphicon-home"></i><span> 首页</span></a>
                         </li>
                         <li class="accordion">
                             <a href="#"><i class="glyphicon glyphicon-user"></i><span> 系统管理</span></a>
@@ -110,7 +110,7 @@
                             </ul>
                         </li>
                         <li class="accordion">
-                            <a href="#"><i class="glyphicon glyphicon-user"></i><span> 基础数据</span></a>
+                            <a href="#"><i class="glyphicon glyphicon-user"></i><span> 基础设定</span></a>
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a class="ajax-link" href="${createLink(uri: '/systemUser')}">管理员设置</a></li>
                                 <li><a class="ajax-link" href="${createLink(uri: '/systemRole')}">角色设置</a></li>
@@ -137,7 +137,7 @@
                             </ul>
                         </li>
                         <li class="accordion">
-                            <a href="#"><i class="glyphicon glyphicon-user"></i><span> 数据</span></a>
+                            <a href="#"><i class="glyphicon glyphicon-user"></i><span> 统计分析</span></a>
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a class="ajax-link" href="${createLink(uri: '/systemUser')}">管理员设置</a></li>
                                 <li><a class="ajax-link" href="${createLink(uri: '/systemRole')}">角色设置</a></li>
@@ -146,7 +146,7 @@
                             </ul>
                         </li>
                         <li class="accordion">
-                            <a href="#"><i class="glyphicon glyphicon-user"></i><span> 清分</span></a>
+                            <a href="#"><i class="glyphicon glyphicon-user"></i><span> 清分结算</span></a>
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a class="ajax-link" href="${createLink(uri: '/systemUser')}">管理员设置</a></li>
                                 <li><a class="ajax-link" href="${createLink(uri: '/systemRole')}">角色设置</a></li>
@@ -155,7 +155,6 @@
                             </ul>
                         </li>
                     </ul>
-                    <label id="for-is-ajax" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
                 </div>
             </div>
         </div>

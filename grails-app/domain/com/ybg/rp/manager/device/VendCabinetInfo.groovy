@@ -11,6 +11,7 @@ class VendCabinetInfo {
      * 格子柜名称
      */
     String name
+    String codeInfo//编号
     /**
      * 格子门数量
      */

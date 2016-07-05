@@ -4,13 +4,13 @@
             <a href="#">系统管理</a>
         </li>
         <li>
-            <a href="#">系统日志</a>
+            <a href="#">系统角色</a>
         </li>
     </ul>
 </div>
 <div class="box-inner">
     <div class="box-header well" data-original-title="">
-        <h2><i class="glyphicon glyphicon-user"></i> 系统日志</h2>
+        <h2><i class="glyphicon glyphicon-user"></i> 系统角色</h2>
         <div class="box-icon">
             <a href="javascript:addInfo();" class="btn btn-plus btn-round btn-default"><i
                     class="glyphicon glyphicon-plus"></i></a>
@@ -56,20 +56,22 @@
             "serverSide": true,
             "bAutoWidth": true,
             "ajax": {
-                "url":"systemLog/list",
+                "url":"systemRole/list",
                 "dataSrc": "data",
                 "data": function ( d ) {
                     //添加额外的参数传给服务器
                     d.name = $("#name").val();
                 }
             },
-            "order": [[0, 'desc']], // 默认排序(第三列降序, asc升序)
+            "order": [[0, 'asc']], // 默认排序(第三列降序, asc升序)
             "columns": [
-                { "title": "时间", "data" : "operationDate", "orderable": true, "searchable": false },
-                { "title": "操作人", "data" : "operator", "orderable": true, "searchable": false },
-                { "title": "操作内容", "data" : "operationMark", "orderable": true, "searchable": false },
-                { "title": "IP", "data" : "loginIp", "orderable": true, "searchable": false },
-                { "title": "类型", "data" : "type", "orderable": false, "searchable": false },
+                { "title": "权限", "data" : "authority", "orderable": true, "searchable": false },
+                { "title": "角色名称", "data" : "roleName", "orderable": true, "searchable": false },
+                { "title": "备注", "data" : "remark", "orderable": true, "searchable": false },
+                { "title": "创建者", "data" : "createUser", "orderable": true, "searchable": false },
+                { "title": "创建时间", "data" : "createTime", "orderable": true, "searchable": false },
+                { "title": "更新者", "data" : "updateUser", "orderable": true, "searchable": false },
+                { "title": "更新时间", "data" : "updateTime", "orderable": true, "searchable": false },
                 { "title": "操作", "data" : function (data) {
                     return '<a class="btn btn-success" href="javascript:showInfo('+data.id+');" title="查看">' +
                             '<i class="glyphicon glyphicon-zoom-in icon-white"></i></a>&nbsp;&nbsp;' +
@@ -107,33 +109,21 @@
         var content = "" +
                 '<div class="modal-header">' +
                 '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                '<h3>新建</h3>' +
+                '<h3>新建角色</h3>' +
                 '</div>' +
                 '<div class="modal-body">' +
                 '<form id="infoForm" role="form">' +
                 '<div class="form-group">' +
-                '<label for="operationDate">Operation Date</label>' +
-                '<input type="text" class="form-control" id="operationDate" name="operationDate" placeholder="Operation Date">' +
+                '<label for="authority">权限</label>' +
+                '<input type="text" class="form-control" id="authority" name="authority" placeholder="权限英文值,非随意值。">' +
                 '</div>' +
                 '<div class="form-group">' +
-                '<label for="operationMark">Operation Mark</label>' +
-                '<input type="text" class="form-control" id="operationMark" name="operationMark" placeholder="Operation Mark">' +
+                '<label for="roleName">角色名</label>' +
+                '<input type="text" class="form-control" id="roleName" name="roleName" placeholder="角色名">' +
                 '</div>' +
                 '<div class="form-group">' +
-                '<label for="operator">Operator</label>' +
-                '<input type="text" class="form-control" id="operator" name="operator" placeholder="operator">' +
-                '</div>' +
-                '<div class="form-group">' +
-                '<label for="loginIp">Login Ip</label>' +
-                '<input type="text" class="form-control" id="loginIp" name="loginIp" placeholder="Login Ip">' +
-                '</div>' +
-                '<div class="form-group">' +
-                '<label for="remark">Remark</label>' +
-                '<input type="text" class="form-control" id="remark" name="remark" placeholder="Remark">' +
-                '</div>' +
-                '<div class="form-group">' +
-                '<label for="type">Type</label>' +
-                '<input type="text" class="form-control" id="type" name="type" placeholder="Type">' +
+                '<label for="remark">备注</label>' +
+                '<input type="text" class="form-control" id="remark" name="remark" placeholder="备注">' +
                 '</div>' +
                 '</form>' +
                 '</div>' +
@@ -147,7 +137,7 @@
     }
 
     function showInfo(id) {
-        var url = "../systemLog/show/" + id;
+        var url = "../systemRole/show/" + id;
         $.ajax({
             type: "GET",
             url: url,
@@ -155,33 +145,37 @@
                 var content = "" +
                         '<div class="modal-header">' +
                         '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                        '<h3>详情</h3>' +
+                        '<h3>角色详情</h3>' +
                         '</div>' +
                         '<div class="modal-body">' +
                         '<form id="infoForm" role="form">' +
                         '<div class="form-group">' +
-                        '<label for="operationDate">Operation Date</label>' +
-                        '<input type="text" class="form-control" id="operationDate" name="operationDate" readonly="readonly" value="'+result.operationDate+'">' +
+                        '<label for="authority">权限值</label>' +
+                        '<input type="text" class="form-control" id="authority" name="authority" readonly="readonly" value="'+result.authority+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="operationMark">Operation Mark</label>' +
-                        '<input type="text" class="form-control" id="operationMark" name="operationMark" readonly="readonly" value="'+result.operationMark+'">' +
+                        '<label for="roleName">角色名</label>' +
+                        '<input type="text" class="form-control" id="roleName" name="roleName" readonly="readonly" value="'+result.roleName+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="operator">Operator</label>' +
-                        '<input type="text" class="form-control" id="operator" name="operator" readonly="readonly" value="'+result.operator+'">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="loginIp">Login Ip</label>' +
-                        '<input type="text" class="form-control" id="loginIp" name="loginIp" readonly="readonly" value="'+result.loginIp+'">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="remark">Remark</label>' +
+                        '<label for="remark">备注</label>' +
                         '<input type="text" class="form-control" id="remark" name="remark" readonly="readonly" value="'+result.remark+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="type">Type</label>' +
-                        '<input type="text" class="form-control" id="type" name="type" readonly="readonly" value="'+result.type+'">' +
+                        '<label for="createUser">创建者</label>' +
+                        '<input type="text" class="form-control" id="createUser" name="createUser" readonly="readonly" value="'+result.createUser+'">' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="createTime">创建时间</label>' +
+                        '<input type="text" class="form-control" id="createTime" name="createTime" readonly="readonly" value="'+result.createTime+'">' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="updateUser">更新者</label>' +
+                        '<input type="text" class="form-control" id="updateUser" name="updateUser" readonly="readonly" value="'+result.updateUser+'">' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="updateTime">更新时间</label>' +
+                        '<input type="text" class="form-control" id="updateTime" name="updateTime" readonly="readonly" value="'+result.updateTime+'">' +
                         '</div>' +
                         '</form>' +
                         '</div>' +
@@ -199,7 +193,7 @@
     }
 
     function editInfo(id) {
-        var url = "../systemLog/show/" + id;
+        var url = "../systemRole/show/" + id;
         $.ajax({
             type: "GET",
             url: url,
@@ -207,34 +201,22 @@
                 var content = "" +
                         '<div class="modal-header">' +
                         '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                        '<h3>编辑</h3>' +
+                        '<h3>编辑角色</h3>' +
                         '</div>' +
                         '<div class="modal-body">' +
                         '<form id="infoForm" role="form">' +
                         '<input type="hidden" id="id" name="id" value="' + result.id + '">' +
                         '<div class="form-group">' +
-                        '<label for="operationDate">Operation Date</label>' +
-                        '<input type="text" class="form-control" id="operationDate" name="operationDate" value="'+result.operationDate+'">' +
+                        '<label for="authority">权限值</label>' +
+                        '<input type="text" class="form-control" id="authority" name="authority" value="'+result.authority+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="operationMark">Operation Mark</label>' +
-                        '<input type="text" class="form-control" id="operationMark" name="operationMark" value="'+result.operationMark+'">' +
+                        '<label for="roleName">角色名</label>' +
+                        '<input type="text" class="form-control" id="roleName" name="roleName" value="'+result.roleName+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="operator">Operator</label>' +
-                        '<input type="text" class="form-control" id="operator" name="operator" value="'+result.operator+'">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="loginIp">Login Ip</label>' +
-                        '<input type="text" class="form-control" id="loginIp" name="loginIp" value="'+result.loginIp+'">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="remark">Remark</label>' +
+                        '<label for="remark">备注</label>' +
                         '<input type="text" class="form-control" id="remark" name="remark" value="'+result.remark+'">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="type">Type</label>' +
-                        '<input type="text" class="form-control" id="type" name="type" value="'+result.type+'">' +
                         '</div>' +
                         '</form>' +
                         '</div>' +
@@ -271,25 +253,26 @@
     }
 
     function postAjaxRemove(id) {
-        var url = "../systemLog/delete/" + id;
+        var url = "../systemRole/delete/" + id;
         $.ajax({
             type: "DELETE",
+            dataType: "json",
             url: url,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
                 var content = "";
-                if (eval(isSuccess)) {
-                    content = "" +
-                            '<div class="alert alert-danger">' +
-                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                            errorMsg +
-                            '</div>';
-                } else {
+                if (isSuccess) {
                     content = "" +
                             '<div class="alert alert-success">' +
                             '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                             '删除完成' +
+                            '</div>';
+                } else {
+                    content = "" +
+                            '<div class="alert alert-danger">' +
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                            errorMsg +
                             '</div>';
                 }
                 $("#myModal").modal('hide');
@@ -310,10 +293,10 @@
     }
 
     function postAjaxForm() {
-        var url = "../systemLog/save";
+        var url = "../systemRole/save";
         $.ajax({
             type: "POST",
-            dataType: "html",
+            dataType: "json",
             url: url,
             data: $('#infoForm').serialize(),
             success: function (result) {
@@ -322,15 +305,15 @@
                 var content = "";
                 if (eval(isSuccess)) {
                     content = "" +
-                            '<div class="alert alert-danger">' +
-                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                            errorMsg +
-                            '</div>';
-                } else {
-                    content = "" +
                             '<div class="alert alert-success">' +
                             '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                             '操作完成' +
+                            '</div>';
+                } else {
+                    content = "" +
+                            '<div class="alert alert-danger">' +
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                            JSON.stringify(errorMsg) +
                             '</div>';
                 }
                 $("#myModal").modal('hide');

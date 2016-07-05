@@ -43,6 +43,18 @@ class SystemRoleController {
             return
         }
 
+        //TODO 将创建者及修改者改为当前用户
+        if (!systemRole.id) {
+            def now = new Date()
+            systemRole.createTime = now
+            systemRole.updateTime = now
+            systemRole.createUser = ""
+            systemRole.updateUser = ""
+        } else {
+            systemRole.updateTime = new Date()
+            systemRole.updateUser = ""
+        }
+
         if (systemRole.hasErrors()) {
             transactionStatus.setRollbackOnly()
             result.success = false

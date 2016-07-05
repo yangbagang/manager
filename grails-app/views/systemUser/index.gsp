@@ -130,7 +130,7 @@
                 '<input type="email" class="form-control" id="email" name="email" placeholder="邮箱">' +
                 '</div>' +
                 '<div class="form-group">' +
-                '<label for="enabled">是否启用</label>' +
+                '<label for="enabled">启用</label>' +
                 '<input type="checkbox" id="enableAccount" name="enableAccount" value="1">' +
                 '</div>' +
                 '</form>' +
@@ -179,7 +179,7 @@
                         '<input type="text" class="form-control" id="updateTime" name="updateTime" readonly="readonly" value="'+result.updateTime+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="enabled">是否启用</label>' +
+                        '<label for="enabled">启用</label>' +
                         '<input type="checkbox" id="enabled" name="enabled" disabled="disabled" ' + checkFlag + '></div>' +
                         '</form>' +
                         '</div>' +
@@ -228,7 +228,7 @@
                         '<input type="password" class="form-control" id="password" name="password" value="'+result.password+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="enableAccount">是否启用</label>' +
+                        '<label for="enableAccount">启用</label>' +
                         '<input type="checkbox" id="enableAccount" name="enableAccount" value="1" ' + checkFlag + '>' +
                         '</div>' +
                         '</form>' +

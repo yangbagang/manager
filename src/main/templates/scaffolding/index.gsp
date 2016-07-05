@@ -304,6 +304,7 @@
                         '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                         data.responseText +
                         '</div>';
+                $("#myModal").modal('hide');
                 $("#msgInfo").html(errorContent);
                 $("#msgInfo").html(errorContent).fadeIn(300).delay(2000).fadeOut(300);
             }
@@ -344,6 +345,7 @@
                         '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                         data.responseText +
                         '</div>';
+                $("#myModal").modal('hide');
                 $("#msgInfo").html(errorContent);
                 $("#msgInfo").html(content).fadeIn(300).delay(2000).fadeOut(300);
             }

@@ -10,6 +10,7 @@ class PartnerBaseInfo {
     }
 
     String companyName
+    String shortName
     String companyCode
     Date bornDate
     Double registMoney

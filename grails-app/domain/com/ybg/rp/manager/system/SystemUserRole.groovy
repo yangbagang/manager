@@ -46,6 +46,16 @@ class SystemUserRole implements Serializable {
         instance
     }
 
+    static SystemUserRole create(Long userId, Long roleId) {
+        def user = SystemUser.get(userId)
+        def role = SystemRole.get(roleId)
+        if (user && role) {
+            def instance = new SystemUserRole(user: user, role: role)
+            instance.save(flush: true)
+            instance
+        }
+    }
+
     static boolean remove(SystemUser u, SystemRole r) {
         if (u != null && r != null) {
             SystemUserRole.where { user == u && role == r }.deleteAll()
