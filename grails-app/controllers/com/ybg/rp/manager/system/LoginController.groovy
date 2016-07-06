@@ -26,12 +26,12 @@ class LoginController {
         render(view: "login")
     }
 
-    def validateAuthUser(String username, String password) {
+    def validateAuthUser(SystemUser systemUserInstance) {
         def crypto = new BCryptPasswordEncoder(
                 (int) SpringSecurityUtils.securityConfig.password.bcrypt.logrounds)
-        def systemUser = SystemUser.findByUsernameAndEnabled(username, true)
+        def systemUser = SystemUser.findByUsernameAndEnabled(systemUserInstance.username, true)
         if (systemUser == null ||
-                !crypto.isPasswordValid(systemUser.password, password, null)) {
+                !crypto.isPasswordValid(systemUser.password, systemUserInstance.password, null)) {
             throw new NoStackUsernameNotFoundException()
         }
     }
@@ -42,12 +42,12 @@ class LoginController {
     }
 
     //登录处理
-    def auth(String username, String password) {
+    def auth(SystemUser systemUserInstance) {
         ConfigObject jcaptcha = grailsApplication.config.jcaptcha
         if (jcaptcha.enabled) {
             if (!params.jcaptchaChallenge) {
-                session.setAttribute(SpringSecurityUtils.SPRING_SECURITY_LAST_USERNAME_KEY, username)
-                session.setAttribute('SPRING_SECURITY_LAST_PASSWORD', password)
+                session.setAttribute(SpringSecurityUtils.SPRING_SECURITY_LAST_USERNAME_KEY, systemUserInstance.username)
+                session.setAttribute('SPRING_SECURITY_LAST_PASSWORD', systemUserInstance.password)
                 flash.message = "登录失败,验证码不能为空。"
                 flash.errorTag = 1
                 redirect url: SpringSecurityUtils.securityConfig.auth.loginFormUrl
@@ -56,8 +56,8 @@ class LoginController {
             def jcaptchaName = jcaptcha.jcaptchaName as String
             if (!jcaptchaService.validateResponse(jcaptchaName,
                     session.id, params.jcaptchaChallenge)) {
-                session.setAttribute(SpringSecurityUtils.SPRING_SECURITY_LAST_USERNAME_KEY, username)
-                session.setAttribute('SPRING_SECURITY_LAST_PASSWORD', password)
+                session.setAttribute(SpringSecurityUtils.SPRING_SECURITY_LAST_USERNAME_KEY, systemUserInstance.username)
+                session.setAttribute('SPRING_SECURITY_LAST_PASSWORD', systemUserInstance.password)
                 if (systemUserCaptchaLimitService.failLogin(jcaptchaName)) {
                     flash.message = "登录失败,超过最大允许次数。"
                     redirect url: SpringSecurityUtils.securityConfig.auth.loginFormUrl
@@ -71,8 +71,8 @@ class LoginController {
             systemUserCaptchaLimitService.loginSuccess(jcaptchaName)
         }
         springSecurityService.clearCachedRequestmaps()
-        if (StringUtils.isEmpty(username) ||
-                StringUtils.isEmpty(password)) {
+        if (StringUtils.isEmpty(systemUserInstance.username) ||
+                StringUtils.isEmpty(systemUserInstance.password)) {
             session.setAttribute(SpringSecurityUtils.SPRING_SECURITY_LAST_USERNAME_KEY, '')
             session.setAttribute('SPRING_SECURITY_LAST_PASSWORD', '')
             flash.message = "用户名、密码不能为空。"
@@ -82,19 +82,20 @@ class LoginController {
         }
         if (!springSecurityService.isLoggedIn()) {
             try {
-                validateAuthUser(username, password)
-                springSecurityService.reauthenticate(username, password)
+                validateAuthUser(systemUserInstance)
+                springSecurityService.reauthenticate(systemUserInstance.username, systemUserInstance.password)
             } catch (Exception e) {
+                e.printStackTrace()
                 session.setAttribute(SpringSecurityUtils.SPRING_SECURITY_LAST_USERNAME_KEY, '')
                 session.setAttribute('SPRING_SECURITY_LAST_PASSWORD', '')
                 flash.errorTag = 2
                 authFail()
                 return
             }
-            session.setAttribute(SpringSecurityUtils.SPRING_SECURITY_LAST_USERNAME_KEY, username)
+            session.setAttribute(SpringSecurityUtils.SPRING_SECURITY_LAST_USERNAME_KEY, systemUserInstance.username)
         } else {
             try {
-                validateAuthUser(username, password)
+                validateAuthUser(systemUserInstance)
             } catch (Exception e) {
                 session.setAttribute(SpringSecurityUtils.SPRING_SECURITY_LAST_USERNAME_KEY, '')
                 session.setAttribute('SPRING_SECURITY_LAST_PASSWORD', '')
@@ -103,7 +104,7 @@ class LoginController {
                 return
             }
         }
-        systemLogService.save(username, username + "登录", NetUtil.getUserIP(request), "安全")
+        systemLogService.addLog(systemUserInstance.username, "${systemUserInstance.username}登录", NetUtil.getUserIP(request), "安全")
         redirect uri: SpringSecurityUtils.securityConfig.successHandler.defaultTargetUrl
     }
 

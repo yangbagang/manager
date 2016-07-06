@@ -9,7 +9,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
         [pattern: '/500',            access: ['permitAll']],
         [pattern: '/**/favicon.ico', access: ['permitAll']],
 
-        [pattern: '/**',             access: 'permitAll']
+        [pattern: '/**',             access: 'isAuthenticated()']
 ]
 grails.plugin.springsecurity.securityConfigType = "Annotation"
 grails.plugin.springsecurity.webNo = '01'

@@ -50,7 +50,7 @@ class SystemUser implements Serializable {
     ]
 
     Set<SystemRole> getAuthorities() {
-        SystemUserRole.findAllBySystemUser(this)*.systemRole
+        SystemUserRole.findAllByUser(this)*.role
     }
 
     def beforeInsert() {
