@@ -10,4 +10,10 @@ class GoodsTypeTwo {
 
     String name
     Short status
+
+    transient String parentName
+
+    String getParentName() {
+        return this.typeOne?.name
+    }
 }

@@ -114,10 +114,11 @@
                         <li class="accordion">
                             <a href="#"><i class="glyphicon glyphicon-user"></i><span> 基础设定</span></a>
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemUser')}">管理员设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemRole')}">角色设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemUserRole')}">权限设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemLog')}">系统日志</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/baseAreaInfo')}">省市区列表</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/goodsTypeOne')}">大类管理</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/goodsTypeTwo')}">小类管理</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/goodsTypeLabel')}">标签管理</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/goodsBaseInfo')}">商品基本信息</a></li>
                             </ul>
                         </li>
                         <li class="accordion">

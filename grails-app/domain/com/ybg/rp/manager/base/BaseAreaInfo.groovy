@@ -6,8 +6,18 @@ class BaseAreaInfo {
 
     }
 
-    Short level;
-    String areaNo;
-    Integer pid;
-    String name;
+    Short level
+    String areaNo
+    Integer pid
+    String name
+
+    transient String parentName
+
+    String getParentName() {
+        if (this.pid == 0) {
+            ""
+        } else {
+            BaseAreaInfo.get(this.pid)?.name
+        }
+    }
 }
