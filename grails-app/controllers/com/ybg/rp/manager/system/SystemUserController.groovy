@@ -2,14 +2,18 @@ package com.ybg.rp.manager.system
 
 import com.ybg.rp.manager.vo.AjaxPagingVo
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
+@Secured(['ROLE_SUPER_ADMIN', 'ROLE_SYSTEM_ADMIN'])
 class SystemUserController {
 
     static allowedMethods = [save: "POST", delete: "DELETE"]
+
+    def springSecurityService
 
     def index() {
         //render html for ajax
@@ -43,16 +47,16 @@ class SystemUserController {
             return
         }
 
-        //TODO 将创建者及修改者改为当前用户
+        def user = springSecurityService.currentUser
         if (!systemUser.id) {
             def now = new Date()
             systemUser.createTime = now
             systemUser.updateTime = now
-            systemUser.createUser = ""
-            systemUser.updateUser = ""
+            systemUser.createUser = user.realName
+            systemUser.updateUser = user.realName
         } else {
             systemUser.updateTime = new Date()
-            systemUser.updateUser = ""
+            systemUser.updateUser = user.realName
         }
 
         if ("1" == params.enableAccount) {

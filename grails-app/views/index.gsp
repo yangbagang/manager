@@ -100,6 +100,7 @@
                         <li class="nav-header">菜单</li>
                         <li><a class="ajax-link" href="${createLink(uri: '/main')}"><i class="glyphicon glyphicon-home"></i><span> 首页</span></a>
                         </li>
+                        <sec:access expression="hasAnyRole('ROLE_SYSTEM_ADMIN','ROLE_SUPER_ADMIN')">
                         <li class="accordion">
                             <a href="#"><i class="glyphicon glyphicon-user"></i><span> 系统管理</span></a>
                             <ul class="nav nav-pills nav-stacked">
@@ -109,6 +110,7 @@
                                 <li><a class="ajax-link" href="${createLink(uri: '/systemLog')}">系统日志</a></li>
                             </ul>
                         </li>
+                        </sec:access>
                         <li class="accordion">
                             <a href="#"><i class="glyphicon glyphicon-user"></i><span> 基础设定</span></a>
                             <ul class="nav nav-pills nav-stacked">

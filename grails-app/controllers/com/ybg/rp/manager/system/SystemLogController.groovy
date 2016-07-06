@@ -2,9 +2,11 @@ package com.ybg.rp.manager.system
 
 import com.ybg.rp.manager.vo.AjaxPagingVo
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
+@Secured(['ROLE_SUPER_ADMIN', 'ROLE_SYSTEM_ADMIN'])
 class SystemLogController {
 
     def index() {
