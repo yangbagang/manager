@@ -124,10 +124,13 @@
                         <li class="accordion">
                             <a href="#"><i class="glyphicon glyphicon-user"></i><span> 合作伙伴</span></a>
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemUser')}">管理员设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemRole')}">角色设置</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/partnerBaseInfo')}">基本信息</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/partnerUserInfo')}">登录账号</a></li>
                                 <li><a class="ajax-link" href="${createLink(uri: '/systemUserRole')}">权限设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemLog')}">系统日志</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/systemUserRole')}">收益设置</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/partnerAccount')}">结算信息</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/partnerAccountLog')}">结算记录</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/partnerUserOperationLog')}">操作记录</a></li>
                             </ul>
                         </li>
                         <li class="accordion">
@@ -187,7 +190,7 @@
             </div>
             <div class="box-inner">
                 <div class="box-header well">
-                    <h2><i class="glyphicon glyphicon-bullhorn"></i> Alerts</h2>
+                    <h2><i class="glyphicon glyphicon-ok-sign"></i> Welcome</h2>
 
                     <div class="box-icon">
                         <a href="#" class="btn btn-setting btn-round btn-default"><i
@@ -199,17 +202,9 @@
                     </div>
                 </div>
                 <div class="box-content alerts">
-                    <div class="alert alert-danger">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <strong>Oh snap!</strong> Change a few things up and try submitting again.
-                    </div>
-                    <div class="alert alert-success">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <strong>Well done!</strong> You successfully read this important alert message.
-                    </div>
                     <div class="alert alert-info">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+                        欢迎 <strong><sec:loggedInUserInfo field='realName'/></strong> 再次回来。
                     </div>
                 </div>
             </div>

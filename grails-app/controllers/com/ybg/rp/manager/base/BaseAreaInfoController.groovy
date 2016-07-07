@@ -27,4 +27,14 @@ class BaseAreaInfoController {
         render result as JSON
     }
 
+    def listArea(Short level, String pname) {
+        if (pname == "") {
+            def result = BaseAreaInfo.findAllByLevel(level)
+            render result as JSON
+        } else {
+            def parent = BaseAreaInfo.findByLevelAndName(level - 1, pname)
+            def result = BaseAreaInfo.findAllByPid(parent?.id?.intValue())
+            render result as JSON
+        }
+    }
 }

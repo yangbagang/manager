@@ -25,7 +25,7 @@
     <asset:stylesheet src="animate.min.css" />
 
     <!-- jQuery -->
-    <script src="static/bower_components/jquery/jquery.min.js"></script>
+    <script src="../static/bower_components/jquery/jquery.min.js"></script>
     <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <asset:javascript src="html5.js" />
