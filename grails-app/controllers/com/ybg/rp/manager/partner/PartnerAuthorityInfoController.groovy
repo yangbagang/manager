@@ -7,19 +7,17 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
-class PartnerBaseInfoController {
+class PartnerAuthorityInfoController {
 
     static allowedMethods = [save: "POST", delete: "DELETE"]
-
-    def springSecurityService
 
     def index() {
         //render html for ajax
     }
 
     def list() {
-        def data = PartnerBaseInfo.list(params)
-        def count = PartnerBaseInfo.count()
+        def data = PartnerAuthorityInfo.list(params)
+        def count = PartnerAuthorityInfo.count()
 
         def result = new AjaxPagingVo()
         result.data = data
@@ -31,42 +29,29 @@ class PartnerBaseInfoController {
         render result as JSON
     }
 
-    def show(PartnerBaseInfo partnerBaseInfo) {
-        render partnerBaseInfo as JSON
+    def show(PartnerAuthorityInfo partnerAuthorityInfo) {
+        render partnerAuthorityInfo as JSON
     }
 
     @Transactional
-    def save(PartnerBaseInfo partnerBaseInfo) {
+    def save(PartnerAuthorityInfo partnerAuthorityInfo) {
         def result = [:]
-        if (partnerBaseInfo == null) {
+        if (partnerAuthorityInfo == null) {
             result.success = false
-            result.msg = "partnerBaseInfo is null."
+            result.msg = "partnerAuthorityInfo is null."
             render result as JSON
             return
         }
 
-        def user = springSecurityService.currentUser
-        if (partnerBaseInfo.createTime == null) {
-            println "init createTime"
-            partnerBaseInfo.createTime = new Date()
-        }
-        println "createTime=${partnerBaseInfo.createTime}"
-
-        partnerBaseInfo.auditTime = new Date()
-        partnerBaseInfo.admin = user
-
-        if (partnerBaseInfo.hasErrors()) {
-            partnerBaseInfo.errors.each {
-                println it
-            }
+        if (partnerAuthorityInfo.hasErrors()) {
             transactionStatus.setRollbackOnly()
             result.success = false
-            result.msg = partnerBaseInfo.errors
+            result.msg = partnerAuthorityInfo.errors
             render result as JSON
             return
         }
 
-        partnerBaseInfo.save flush:true
+        partnerAuthorityInfo.save flush:true
 
         result.success = true
         result.msg = ""
@@ -74,24 +59,24 @@ class PartnerBaseInfoController {
     }
 
     @Transactional
-    def delete(PartnerBaseInfo partnerBaseInfo) {
+    def delete(PartnerAuthorityInfo partnerAuthorityInfo) {
         def result = [:]
-        if (partnerBaseInfo == null) {
+        if (partnerAuthorityInfo == null) {
             result.success = false
-            result.msg = "partnerBaseInfo is null."
+            result.msg = "partnerAuthorityInfo is null."
             render result as JSON
             return
         }
 
-        partnerBaseInfo.delete flush:true
+        partnerAuthorityInfo.delete flush:true
 
         result.success = true
         result.msg = ""
         render result as JSON
     }
 
-    def listPartners() {
-        def result = PartnerBaseInfo.findAllByStatus(Short.valueOf("1"))
+    def listPartnerAuthoritys() {
+        def result = PartnerAuthorityInfo.listOrderById()
         render result as JSON
     }
 }

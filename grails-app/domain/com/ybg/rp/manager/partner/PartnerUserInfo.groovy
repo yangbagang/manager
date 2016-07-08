@@ -20,6 +20,8 @@ class PartnerUserInfo {
 
     transient springSecurityService
 
+    transient String partnerName
+
     /** 用户名*/
     String username
     String realName
@@ -49,6 +51,10 @@ class PartnerUserInfo {
      * 修改人
      */
     String updateUser
+
+    String getPartnerName() {
+        return parnterBaseInfo?.shortName
+    }
 
     def beforeInsert() {
         encodePassword()
