@@ -65,10 +65,10 @@
             "order": [[0, 'desc']], // 默认排序(第三列降序, asc升序)
             "columns": [
                 { "title": "ID", "data" : "id", "orderable": true, "searchable": false },
-                { "title": "名称", "data" : "realName", "orderable": true, "searchable": false },
-                { "title": "品牌", "data" : "email", "orderable": true, "searchable": false },
-                { "title": "规格", "data" : "createTime", "orderable": true, "searchable": false },
-                { "title": "售价", "data" : "updateTime", "orderable": true, "searchable": false },
+                { "title": "名称", "data" : "name", "orderable": true, "searchable": false },
+                { "title": "品牌", "data" : "brand", "orderable": true, "searchable": false },
+                { "title": "规格", "data" : "specifications", "orderable": true, "searchable": false },
+                { "title": "售价", "data" : "realPrice", "orderable": true, "searchable": false },
                 { "title": "是否在售", "data" : function (data) {
                     return data.status == 1 ? "在售" : "停售";
                 }, "orderable": false, "searchable": false},
@@ -106,41 +106,67 @@
     });
 
     function importGoodsInfo() {
+        var storeId = $("#themeStoreId").val()
         var content = "" +
                 '<div class="modal-header">' +
                 '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                '<h3>新建管理员</h3>' +
+                '<h3>导入商品</h3>' +
                 '</div>' +
                 '<div class="modal-body">' +
-                '<form id="infoForm" role="form">' +
-                '<div class="form-group">' +
-                '<label for="username">用户名</label>' +
-                '<input type="text" class="form-control" id="username" name="username" placeholder="用户名">' +
-                '</div>' +
-                '<div class="form-group">' +
-                '<label for="realName">姓名</label>' +
-                '<input type="text" class="form-control" id="realName" name="realName" placeholder="姓名">' +
-                '</div>' +
-                '<div class="form-group">' +
-                '<label for="password">密码</label>' +
-                '<input type="password" class="form-control" id="password" name="password" placeholder="密码">' +
-                '</div>' +
-                '<div class="form-group">' +
-                '<label for="loginIp">邮箱</label>' +
-                '<input type="email" class="form-control" id="email" name="email" placeholder="邮箱">' +
-                '</div>' +
-                '<div class="form-group">' +
-                '<label for="enabled">启用</label>' +
-                '<input type="checkbox" id="enableAccount" name="enableAccount" value="1">' +
-                '</div>' +
+                '<form id="goodsForm" role="form">' +
+                '<input type="hidden" name="themeStoreId" value="'+storeId+'">' +
+                '<table class="table table-striped table-bordered search_table" id="goodsTable"></table>' +
                 '</form>' +
                 '</div>' +
                 '<div class="modal-footer">' +
                 '<a href="#" class="btn btn-default" data-dismiss="modal">关闭</a>' +
-                '<a href="javascript:postAjaxForm();" class="btn btn-primary">保存</a>' +
+                '<a href="javascript:importGoodsForm();" class="btn btn-primary">导入</a>' +
                 '</div>';
         $("#modal-content").html("");
         $("#modal-content").html(content);
+        $('#goodsTable').DataTable({
+            "bLengthChange": true,
+            "bFilter": false,
+            "lengthMenu": [10, 20, 50, 100],
+            "paginate": true,
+            "processing": true,
+            "pagingType": "full_numbers",
+            "serverSide": true,
+            "bAutoWidth": true,
+            "ajax": {
+                "url":"goodsBaseInfo/list",
+                "dataSrc": "data",
+                "data": function ( d ) {
+                    //添加额外的参数传给服务器
+                }
+            },
+            "order": [[1, 'desc']], // 默认排序(第三列降序, asc升序)
+            "columns": [
+                { "title": "选择", "data" : function (data) {
+                    return '<input type="checkbox" name="goodsIds" value="'+data.id+'">';
+                }, "orderable": true, "searchable": false },
+                { "title": "ID", "data" : "id", "orderable": true, "searchable": false },
+                { "title": "名称", "data" : "name", "orderable": true, "searchable": false },
+                { "title": "品牌", "data" : "brand", "orderable": true, "searchable": false },
+                { "title": "规格", "data" : "specifications", "orderable": true, "searchable": false },
+                { "title": "指导价", "data" : "basePrice", "orderable": true, "searchable": false }
+            ],
+            "language": {
+                "zeroRecords": "没有数据",
+                "lengthMenu" : "_MENU_",
+                "info": "显示第 _START_ 至 _END_ 条记录，共 _TOTAL_ 条",
+                "loadingRecords": "加载中...",
+                "processing": "加载中...",
+                "infoFiltered": "",
+                "infoEmpty": "暂无记录",
+                "paginate": {
+                    "first": "首页",
+                    "last": "末页",
+                    "next": "下一页",
+                    "previous": "上一页"
+                }
+            }
+        });
         $('#myModal').modal('show');
     }
 
@@ -325,6 +351,46 @@
             dataType: "json",
             url: url,
             data: $('#infoForm').serialize(),
+            success: function (result) {
+                var isSuccess = result.success;
+                var errorMsg = result.msg;
+                var content = "";
+                if (isSuccess) {
+                    content = "" +
+                            '<div class="alert alert-success">' +
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                            '操作完成' +
+                            '</div>';
+                } else {
+                    content = "" +
+                            '<div class="alert alert-danger">' +
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                            JSON.stringify(errorMsg) +
+                            '</div>';
+                }
+                $("#myModal").modal('hide');
+                gridTable.ajax.reload(null, false);
+                $("#msgInfo").html(content).fadeIn(300).delay(2000).fadeOut(300);
+            },
+            error: function(data) {
+                var errorContent = "" +
+                        '<div class="alert alert-danger">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        data.responseText +
+                        '</div>';
+                $("#msgInfo").html(errorContent);
+                $("#msgInfo").html(content).fadeIn(300).delay(2000).fadeOut(300);
+            }
+        });
+    }
+
+    function importGoodsForm() {
+        var url = "../themeStoreGoodsInfo/importGoods";
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: url,
+            data: $('#goodsForm').serialize(),
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;

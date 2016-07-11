@@ -90,6 +90,7 @@ class ThemeStoreGoodsInfoController {
 
     @Transactional
     def importGoods(Long themeStoreId) {
+        println "themeStoreId=${params.themeStoreId}"
         def result = [:]
 
         try {
