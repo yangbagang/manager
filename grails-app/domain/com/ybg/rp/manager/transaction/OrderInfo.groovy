@@ -4,38 +4,43 @@ import com.ybg.rp.manager.device.VendMachineInfo
 
 class OrderInfo {
 
-    static belongsTo = [vendMachine: VendMachineInfo]
-
     static constraints = {
+        isCancel nullable: true
+        payStatus nullable: true
+        orderWay nullable: true
+        deliveryStatus nullable: true
+        payWay nullable: true
+        getWay nullable: true
+        peiSongMoney nullable: true
+        confirmTime nullable: true
+        completeTime nullable: true
+        quHuoCode nullable: true
+        peiSongTime nullable: true
+        quHuoTime nullable: true
     }
 
+    VendMachineInfo vendMachine
     String orderNo
     /** 作废标识 */
-    Short isCancel //0:未取消 1:手动取消 2:超时取消
+    Short isCancel = 0 as Short//0:未取消 1:手动取消 2:超时取消
     /** 付款状态  */
-    Short payStatus    //0:未付款 1:已付款
+    Short payStatus = 0 as Short //0:未付款 1:已付款
     /** 订单渠道 */
-    Short orderWay     //0:线下 1:微信 2:WEB 3:APP
+    Short orderWay = 1 as Short  //0:线下 1:微信 2:WEB 3:APP
     /** 发货状态 */
-    Short deliveryStatus;   //0:未发货 1:出货成功 2:出货失败
+    Short deliveryStatus = 0 as Short   //0:未发货 1:出货成功 2:出货失败
     /** 支付方式 */
-    Short payWay   //0:园区一卡通 1:支付宝 2:微信支付 3:在线账户
+    Short payWay   //0:银联 1:支付宝 2:微信支付 3:在线账户
     /** 取货方式 */
-    Short getWay  //0:默认 未选 1:自己取 2:别人配送
-    Date receiverName
-    String province
-    String city
-    String area
-    String address
-    String phoneNo
-    String message
+    Short getWay = 1 as Short //0:默认 未选 1:自己取 2:别人配送
+
     String transNo
-    Float orderMoney
-    Float peiSongMoney
-    Float totalMoney
-    Float youHuiJuan
-    Float userScore
-    Float realMoney
+    Float orderMoney = 0
+    Float peiSongMoney = 0
+    Float totalMoney = 0
+    Float youHuiJuan = 0
+    Float userScore = 0
+    Float realMoney = 0
     Date createTime
     Date confirmTime
     Date completeTime

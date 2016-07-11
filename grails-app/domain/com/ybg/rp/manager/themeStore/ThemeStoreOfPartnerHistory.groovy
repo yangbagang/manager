@@ -11,7 +11,7 @@ class ThemeStoreOfPartnerHistory {
 
     }
 
-    Float sale
+    Float scale
     SystemUser lastUpdateUser
     Date lastUpdateTime
 }

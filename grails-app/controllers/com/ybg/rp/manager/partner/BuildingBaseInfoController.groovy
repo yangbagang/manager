@@ -11,6 +11,8 @@ class BuildingBaseInfoController {
 
     static allowedMethods = [save: "POST", delete: "DELETE"]
 
+    def springSecurityService
+
     def index() {
         //render html for ajax
     }
@@ -43,7 +45,19 @@ class BuildingBaseInfoController {
             return
         }
 
+        def user = springSecurityService.currentUser
+        if (!buildingBaseInfo.id) {
+            buildingBaseInfo.admin = user
+            buildingBaseInfo.uploadTime = new Date()
+        }
+        buildingBaseInfo.auditTime = new Date()
+
+        println "buildingBaseInfo.partner.id=${buildingBaseInfo?.partner?.id}"
+
         if (buildingBaseInfo.hasErrors()) {
+            buildingBaseInfo.errors.each {
+                println it
+            }
             transactionStatus.setRollbackOnly()
             result.success = false
             result.msg = buildingBaseInfo.errors

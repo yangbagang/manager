@@ -137,10 +137,20 @@
                         <li class="accordion">
                             <a href="#"><i class="glyphicon glyphicon-user"></i><span> 主题店</span></a>
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemUser')}">管理员设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemRole')}">角色设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemUserRole')}">权限设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemLog')}">系统日志</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/buildingBaseInfo')}">楼宇签约</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/themeStoreBaseInfo')}">主题店开业</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/themeStoreOfPartner')}">绑定伙伴</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/themeStoreOfPartnerHistory')}">绑定记录</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/themeStoreGoodsInfo')}">定制商品</a></li>
+                            </ul>
+                        </li>
+                        <li class="accordion">
+                            <a href="#"><i class="glyphicon glyphicon-user"></i><span> 机器设备</span></a>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a class="ajax-link" href="${createLink(uri: '/vendMachineInfo')}">设备管理</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/vendLayerTrackGoods')}">商品管理</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/vendMachineInfoErrorInfo')}">轨道错误</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/vendMachineInfo/list2')}">离线设备</a></li>
                             </ul>
                         </li>
                         <li class="accordion">

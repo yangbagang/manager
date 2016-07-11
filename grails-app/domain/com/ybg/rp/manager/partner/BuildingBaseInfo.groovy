@@ -8,6 +8,9 @@ class BuildingBaseInfo {
     static belongsTo = [partner: PartnerBaseInfo]
 
     static constraints = {
+        uploadTime nullable: true
+        auditTime nullable: true
+        admin nullable: true
     }
 
     String name

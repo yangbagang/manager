@@ -249,20 +249,20 @@
                         '<input type="text" class="form-control" id="phoneNum" name="phoneNum" readonly="readonly" value="'+result.phoneNum+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="province" disabled="disabled">省</label>' +
-                        '<select id="province" name="province">' +
+                        '<label for="province">省</label>' +
+                        '<select id="province" name="province" disabled="disabled">' +
                         '<option value="">'+result.province+'</option>' +
                         '</select>' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="city" disabled="disabled">市</label>' +
-                        '<select id="city" name="city">' +
+                        '<label for="city">市</label>' +
+                        '<select id="city" name="city" disabled="disabled">' +
                         '<option value="">'+result.city+'</option>' +
                         '</select>' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="county" disabled="disabled">区</label>' +
-                        '<select id="county" name="county">' +
+                        '<label for="county">区</label>' +
+                        '<select id="county" name="county" disabled="disabled">' +
                         '<option value="">'+result.county+'</option>' +
                         '</select>' +
                         '</div>' +

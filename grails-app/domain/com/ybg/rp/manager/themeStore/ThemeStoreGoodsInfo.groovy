@@ -5,11 +5,14 @@ import com.ybg.rp.manager.base.GoodsTypeTwo
 
 class ThemeStoreGoodsInfo {
 
-    static belongsTo = [themeStore: ThemeStoreBaseInfo, typeOne: GoodsTypeOne, typeTwo: GoodsTypeTwo]
+    static belongsTo = [themeStore: ThemeStoreBaseInfo]
 
     static constraints = {
+        picId nullable: true
+        px nullable: true
     }
 
+    Long baseId
     String name
     String brand
     String specifications
@@ -18,5 +21,4 @@ class ThemeStoreGoodsInfo {
     String picId
     Short status
     Integer px
-    String labels
 }

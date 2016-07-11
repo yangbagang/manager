@@ -23,4 +23,15 @@ class VendMachineInfoErrorInfo {
 
     /** 修复状态0：修复，1：未修复*/
     Short status = 0
+
+    transient String machineName
+    transient String themeStoreName
+
+    String getMachineName() {
+        return vendMachine?.machineName
+    }
+
+    String getThemeStoreName() {
+        return vendMachine?.themeStore?.name
+    }
 }

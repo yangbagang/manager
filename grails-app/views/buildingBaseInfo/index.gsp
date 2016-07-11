@@ -70,7 +70,7 @@
                 { "title": "市", "data" : "city", "orderable": true, "searchable": false },
                 { "title": "区", "data" : "county", "orderable": true, "searchable": false },
                 { "title": "签约时间", "data" : "signTime", "orderable": true, "searchable": false },
-                { "title": "物业", "data" : "company", "orderable": true, "searchable": false },
+                { "title": "签约伙伴", "data" : "partnerName", "orderable": true, "searchable": false },
                 { "title": "操作", "data" : function (data) {
                     return '<a class="btn btn-success" href="javascript:showInfo('+data.id+');" title="查看">' +
                             '<i class="glyphicon glyphicon-zoom-in icon-white"></i></a>&nbsp;&nbsp;' +
@@ -118,7 +118,7 @@
                 '</div>' +
                 '<div class="form-group">' +
                 '<label for="partnerBaseInfoId">签约伙伴</label>' +
-                '<select id="partnerBaseInfoId" name="parnter.id"></select>' +
+                '<select id="partnerBaseInfoId" name="partner.id"></select>' +
                 '</div>' +
                 '<div class="form-group">' +
                 '<label for="address">地址</label>' +
@@ -204,8 +204,8 @@
                         '<input type="text" class="form-control" id="name" name="name" readonly="readonly" value="'+result.name+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="partnerBaseInfoId" disabled="disabled">签约伙伴</label>' +
-                        '<select id="partnerBaseInfoId" name="partner.id">' +
+                        '<label for="partnerBaseInfoId">签约伙伴</label>' +
+                        '<select id="partnerBaseInfoId" name="partner.id" disabled="disabled">' +
                         '<option value="">'+result.partnerName+'</option>' +
                         '</select>' +
                         '</div>' +
@@ -230,20 +230,20 @@
                         '<input type="text" class="form-control" id="peopleNum" name="peopleNum" readonly="readonly" value="'+result.peopleNum+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="province" disabled="disabled">省</label>' +
-                        '<select id="province" name="province">' +
+                        '<label for="province">省</label>' +
+                        '<select id="province" name="province" disabled="disabled">' +
                         '<option value="">'+result.province+'</option>' +
                         '</select>' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="city" disabled="disabled">市</label>' +
-                        '<select id="city" name="city">' +
+                        '<label for="city">市</label>' +
+                        '<select id="city" name="city" disabled="disabled">' +
                         '<option value="">'+result.city+'</option>' +
                         '</select>' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="county" disabled="disabled">区</label>' +
-                        '<select id="county" name="county">' +
+                        '<label for="county">区</label>' +
+                        '<select id="county" name="county" disabled="disabled">' +
                         '<option value="">'+result.county+'</option>' +
                         '</select>' +
                         '</div>' +
@@ -292,28 +292,32 @@
                         '<form id="infoForm" role="form">' +
                         '<input type="hidden" id="id" name="id" value="' + result.id + '">' +
                         '<div class="form-group">' +
-                        '<label for="companyName">名称</label>' +
-                        '<input type="text" class="form-control" id="companyName" name="companyName" value="'+result.companyName+'">' +
+                        '<label for="name">名称</label>' +
+                        '<input type="text" class="form-control" id="name" name="name" value="'+result.name+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="shortName">简称</label>' +
-                        '<input type="text" class="form-control" id="shortName" name="shortName" value="'+result.shortName+'">' +
+                        '<label for="partnerBaseInfoId">签约伙伴</label>' +
+                        '<select id="partnerBaseInfoId" name="partner.id"></select>' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="companyCode">代码</label>' +
-                        '<input type="text" class="form-control" id="companyCode" name="companyCode" value="'+result.companyCode+'">' +
+                        '<label for="address">地址</label>' +
+                        '<input type="text" class="form-control" id="address" name="address" value="'+result.address+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="bornDate">成立时间</label>' +
-                        '<input type="text" class="form-control" id="bornDate" name="bornDate" value="'+result.bornDate+'">' +
+                        '<label for="areaNum">建筑面积</label>' +
+                        '<input type="text" class="form-control" id="areaNum" name="areaNum" value="'+result.areaNum+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="registMoney">注册资本</label>' +
-                        '<input type="text" class="form-control" id="registMoney" name="registMoney" value="'+result.registMoney+'">' +
+                        '<label for="buildDate">建成时间</label>' +
+                        '<input type="text" class="form-control" id="buildDate" name="buildDate" value="'+result.buildDate+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="phoneNum">电话</label>' +
-                        '<input type="text" class="form-control" id="phoneNum" name="phoneNum" value="'+result.phoneNum+'">' +
+                        '<label for="floorNum">楼层数</label>' +
+                        '<input type="text" class="form-control" id="floorNum" name="floorNum" value="'+result.floorNum+'">' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="peopleNum">入驻人数</label>' +
+                        '<input type="text" class="form-control" id="peopleNum" name="peopleNum" value="'+result.peopleNum+'">' +
                         '</div>' +
                         '<div class="form-group">' +
                         '<label for="province">省</label>' +
@@ -333,44 +337,20 @@
                         '</select>' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="address">地址</label>' +
-                        '<input type="text" class="form-control" id="address" name="address" value="'+result.address+'">' +
+                        '<label for="descriptions">备注</label>' +
+                        '<input type="text" class="form-control" id="descriptions" name="descriptions" value="'+result.descriptions+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="contactName">联系人</label>' +
-                        '<input type="text" class="form-control" id="contactName" name="contactName" value="'+result.contactName+'">' +
+                        '<label for="signTime">签约日期</label>' +
+                        '<input type="text" class="form-control" id="signTime" name="signTime" value="'+result.signTime+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="contactPhone">联系电话</label>' +
-                        '<input type="text" class="form-control" id="contactPhone" name="contactPhone" value="'+result.contactPhone+'">' +
+                        '<label for="company">物业</label>' +
+                        '<input type="text" class="form-control" id="company" name="company" value="'+result.company+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="contactMail">联系邮箱</label>' +
-                        '<input type="text" class="form-control" id="contactMail" name="contactMail" value="'+result.contactMail+'">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="bankName">开户行</label>' +
-                        '<input type="text" class="form-control" id="bankName" name="bankName" value="'+result.bankName+'">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="accountNum">账号</label>' +
-                        '<input type="text" class="form-control" id="accountNum" name="accountNum" value="'+result.accountNum+'">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="accountName">账户名</label>' +
-                        '<input type="text" class="form-control" id="accountName" name="accountName" value="'+result.accountName+'">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="type">性质</label>' +
-                        '<select id="type" name="type"><option value="0">经营</option><option value="1">代理</option></select>' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="status">状态</label>' +
-                        '<select id="status" name="status"><option value="0">停止</option><option value="1">正常</option></select>' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="pid">推广人ID</label>' +
-                        '<input type="text" class="form-control" id="pid" name="pid" value="'+result.pid+'">' +
+                        '<label for="auditStatus">审核状态</label>' +
+                        '<select id="auditStatus" name="auditStatus"><option value="0">未通过</option><option value="1">通过</option></select>' +
                         '</div>' +
                         '</form>' +
                         '</div>' +
@@ -381,15 +361,15 @@
                 $("#modal-content").html("");
                 $("#modal-content").html(content);
                 $('#myModal').modal('show');
-                $("#type").val(result.type);
-                $("#status").val(result.status);
-                loadAreaList($("#province"), 1, "", '"' + result.province + '"');
+                $("#auditStatus").val(result.auditStatus);
+                loadAreaList($("#province"), 1, "", result.province);
                 $("#province").change(function () {
                     loadAreaList($("#city"), 2, $(this).val(), "0");
                 });
                 $("#city").change(function () {
                     loadAreaList($("#county"), 3, $(this).val(), "0");
                 });
+                loadPartnerList(result.partner.id);
             },
             error: function (data) {
                 showErrorInfo(data.responseText);
@@ -416,7 +396,7 @@
     }
 
     function postAjaxRemove(id) {
-        var url = "../partnerBaseInfo/delete/" + id;
+        var url = "../buildingBaseInfo/delete/" + id;
         $.ajax({
             type: "DELETE",
             dataType: "json",
@@ -457,7 +437,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../partnerBaseInfo/save";
+        var url = "../buildingBaseInfo/save";
         $.ajax({
             type: "POST",
             dataType: "json",

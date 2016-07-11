@@ -43,6 +43,8 @@ class ${className}Controller {
             return
         }
 
+        ${propertyName}.save flush:true
+
         if (${propertyName}.hasErrors()) {
             transactionStatus.setRollbackOnly()
             result.success = false
@@ -50,8 +52,6 @@ class ${className}Controller {
             render result as JSON
             return
         }
-
-        ${propertyName}.save flush:true
 
         result.success = true
         result.msg = ""

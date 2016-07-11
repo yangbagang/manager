@@ -7,6 +7,11 @@ class VendMachineInfo {
     static belongsTo = [themeStore: ThemeStoreBaseInfo]
 
     static constraints = {
+        status nullable: true
+        type nullable: true
+        clientId nullable: true
+        onlineStatus nullable: true
+        reportTime nullable: true
     }
 
     /**机器名称*/
@@ -28,7 +33,7 @@ class VendMachineInfo {
     Long orbitalTotal
 
     /**删除状态*/
-    Short status
+    Short status = 1 as Short//1 normal 0 isDelete
 
     /**是否有格子柜*/
     Integer type = 0
@@ -44,4 +49,9 @@ class VendMachineInfo {
 
     Short isReal = 1 //是否真实存在,对于物理机器为1,对于线上机器为0
 
+    transient String themeStoreName
+
+    String getThemeStoreName() {
+        return themeStore?.name
+    }
 }
