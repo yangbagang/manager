@@ -5,6 +5,7 @@ class VendMachineInfoErrorInfo {
     static belongsTo = [vendMachine: VendMachineInfo]
 
     static constraints = {
+        fixTime nullable: true
     }
 
     /** 轨道编号*/

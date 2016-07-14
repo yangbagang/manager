@@ -15,7 +15,7 @@ class OrderDetail {
     Float discount
     Float buyPrice
     String goodsName
-    String goofsSpec
+    String goodsSpec
     String goodsPic
     String orbitalNo
     Integer status//0 未取货 1 申请退款 2 已退款 3取货
