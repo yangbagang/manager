@@ -17,20 +17,11 @@ class VendMachineInfo {
     /**机器名称*/
     String machineName
 
-    /**售卖机（终端）代码*/
+    /**售卖机码*/
     String machineCode
 
     /**机器型号*/
     String machineModel
-
-    /**售卖机层数*/
-    Integer layerNum
-
-    /**是否有光幕检测*/
-    Short isScreen
-
-    /**轨道总数*/
-    Long orbitalTotal
 
     /**删除状态*/
     Short status = 1 as Short//1 normal 0 isDelete
