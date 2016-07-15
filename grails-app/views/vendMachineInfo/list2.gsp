@@ -48,11 +48,11 @@
             "serverSide": true,
             "bAutoWidth": true,
             "ajax": {
-                "url":"vendMachineInfo/list",
+                "url":"vendMachineInfo/listOfflineDev",
                 "dataSrc": "data",
                 "data": function ( d ) {
                     //添加额外的参数传给服务器
-                    d.themeStoreId = $("#themeStoreId").val();
+                    //d.themeStoreId = $("#themeStoreId").val();
                 }
             },
             "order": [[0, 'desc']], // 默认排序(第三列降序, asc升序)

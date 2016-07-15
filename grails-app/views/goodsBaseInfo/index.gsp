@@ -74,7 +74,9 @@
                     return  '<a class="btn btn-info" href="javascript:editInfo('+data.id+');" title="编辑">' +
                             '<i class="glyphicon glyphicon-edit icon-white"></i></a>&nbsp;&nbsp;' +
                             '<a class="btn btn-danger" href="javascript:removeInfo('+data.id+');" title="删除">' +
-                            '<i class="glyphicon glyphicon-trash icon-white"></i></a>';
+                            '<i class="glyphicon glyphicon-trash icon-white"></i></a>&nbsp;&nbsp' +
+                            '<a class="btn btn-info" href="javascript:editTypeInfo('+data.id+');" title="分类">' +
+                            '<i class="glyphicon glyphicon-edit icon-white"></i></a>;';
                 }, "orderable": false, "searchable": false }
             ],
             "language": {

@@ -86,15 +86,25 @@ class VendMachineInfoController {
     }
 
     def listOfflineDev() {
-        def data = VendMachineInfo.findAllByIsRealAndOnlineStatus(1 as Short, 0 as Short, params)
-        def count = data.count()
+        def c = VendMachineInfo.createCriteria()
+        def data = c.list(params) {
+            and {
+                eq("isReal", 1 as Short)
+                eq("status", 1 as Short)
+                or{
+                    eq("onlineStatus", 0 as Short)
+                    isNull("onlineStatus")
+                }
+            }
+        }
+        def count = data.size()
 
         def result = new AjaxPagingVo()
         result.data = data
         result.draw = Integer.valueOf(params.draw)
         result.error = ""
         result.success = true
-        result.recordsTotal = count
+        result.recordsTotal = data.totalCount
         result.recordsFiltered = count
         render result as JSON
     }

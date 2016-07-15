@@ -68,10 +68,7 @@
                 { "title": "名称", "data" : "machineName", "orderable": true, "searchable": false },
                 { "title": "编号", "data" : "machineCode", "orderable": true, "searchable": false },
                 { "title": "型号", "data" : "machineModel", "orderable": true, "searchable": false },
-                { "title": "层数", "data" : "layerNum", "orderable": true, "searchable": false },
-                { "title": "光幕", "data" : function (data) {
-                    return data.isScreen == 1 ? "有" : "无";
-                }, "orderable": false, "searchable": false},
+                { "title": "所属主题店", "data" : "themeStoreName", "orderable": false, "searchable": false },
                 { "title": "类型", "data" : function (data) {
                     return data.isReal == 1 ? "线下" : "线上";
                 }, "orderable": false, "searchable": false},
@@ -131,18 +128,6 @@
                 '<input type="text" class="form-control" id="machineModel" name="machineModel" placeholder="型号">' +
                 '</div>' +
                 '<div class="form-group">' +
-                '<label for="layerNum">层数</label>' +
-                '<input type="text" class="form-control" id="layerNum" name="layerNum" placeholder="层数">' +
-                '</div>' +
-                '<div class="form-group">' +
-                '<label for="isScreen">是否有光幕</label>' +
-                '<select class="form-control" id="isScreen" name="isScreen"><option value="1">有</option><option value="0">无</option></select>' +
-                '</div>' +
-                '<div class="form-group">' +
-                '<label for="orbitalTotal">轨道总数</label>' +
-                '<input type="text" class="form-control" id="orbitalTotal" name="orbitalTotal" placeholder="轨道总数">' +
-                '</div>' +
-                '<div class="form-group">' +
                 '<label for="isReal">类型</label>' +
                 '<select class="form-control" id="isReal" name="isReal"><option value="1">线下</option><option value="0">线上</option></select>' +
                 '</div>' +
@@ -184,18 +169,6 @@
                         '<input type="text" class="form-control" id="machineModel" name="machineModel" readonly="readonly" value="'+result.machineModel+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="layerNum">层数</label>' +
-                        '<input type="text" class="form-control" id="layerNum" name="layerNum" readonly="readonly" value="'+result.layerNum+'">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="orbitalTotal">轨道总数</label>' +
-                        '<input type="text" class="form-control" id="orbitalTotal" name="orbitalTotal" readonly="readonly" value="'+result.orbitalTotal+'">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="isScreen">是否有光幕</label>' +
-                        '<select class="form-control" id="isScreen" name="isScreen" disabled="disabled"><option value="1">有</option><option value="0">无</option></select>' +
-                        '</div>' +
-                        '<div class="form-group">' +
                         '<label for="isReal">类型</label>' +
                         '<select class="form-control" id="isReal" name="isReal" disabled="disabled"><option value="1">线下</option><option value="0">线上</option></select>>' +
                         '</div>' +
@@ -207,7 +180,6 @@
                 $("#modal-content").html("");
                 $("#modal-content").html(content);
                 $('#myModal').modal('show');
-                $('#isScreen').val(result.isScreen);
                 $('#isReal').val(result.isReal);
             },
             error: function (data) {
@@ -245,21 +217,6 @@
                         '<input type="text" class="form-control" id="machineModel" name="machineModel" value="'+result.machineModel+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="layerNum">层数</label>' +
-                        '<input type="text" class="form-control" id="layerNum" name="layerNum" value="'+result.layerNum+'">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="orbitalTotal">轨道总数</label>' +
-                        '<input type="text" class="form-control" id="orbitalTotal" name="orbitalTotal" value="'+result.orbitalTotal+'">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="isScreen">是否有光幕</label>' +
-                        '<select class="form-control" id="isScreen" name="isScreen">' +
-                        '<option value="1">有</option>' +
-                        '<option value="0">无</option>' +
-                        '</select>' +
-                        '</div>' +
-                        '<div class="form-group">' +
                         '<label for="isReal">类型</label>' +
                         '<select class="form-control" id="isReal" name="isReal">' +
                         '<option value="1">线下</option>' +
@@ -275,7 +232,6 @@
                 $("#modal-content").html("");
                 $("#modal-content").html(content);
                 $('#myModal').modal('show');
-                $('#isScreen').val(result.isScreen);
                 $('#isReal').val(result.isReal);
             },
             error: function (data) {
