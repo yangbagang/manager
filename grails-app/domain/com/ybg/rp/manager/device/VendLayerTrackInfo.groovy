@@ -8,14 +8,10 @@ class VendLayerTrackInfo {
     }
 
     /**第几层（层数）*/
-    String layer;
+    String layer
 
     /** 轨道数量*/
-    Integer orbitalNum;
+    Integer orbitalNum
 
-    /**创建时间*/
-    Date createTime
-
-    /**更新时间*/
-    Date updateTime
+    Short isCabinet
 }
