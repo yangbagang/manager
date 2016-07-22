@@ -131,6 +131,10 @@
                 '<label for="picId">图片</label>' +
                 '<input type="text" class="form-control" id="picId" name="picId">' +
                 '</div>' +
+                '<div class="form-group">' +
+                '<label for="letter">首字母</label>' +
+                '<input type="text" class="form-control" id="letter" name="letter">' +
+                '</div>' +
                 '</form>' +
                 '</div>' +
                 '<div class="modal-footer">' +
@@ -175,6 +179,10 @@
                         '<div class="form-group">' +
                         '<label for="picId">图片</label>' +
                         '<input type="text" class="form-control" id="picId" name="picId" value="' + result.picId + '">' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="letter">首字母</label>' +
+                        '<input type="text" class="form-control" id="letter" name="letter" value="' + result.letter + '">' +
                         '</div>' +
                         '</form>' +
                         '</div>' +

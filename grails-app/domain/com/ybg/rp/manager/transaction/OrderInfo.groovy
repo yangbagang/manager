@@ -11,6 +11,7 @@ class OrderInfo {
         deliveryStatus nullable: true
         payWay nullable: true
         getWay nullable: true
+        transNo nullable: true
         peiSongMoney nullable: true
         confirmTime nullable: true
         completeTime nullable: true

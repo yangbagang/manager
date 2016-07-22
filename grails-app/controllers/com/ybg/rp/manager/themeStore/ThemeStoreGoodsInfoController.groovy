@@ -112,6 +112,7 @@ class ThemeStoreGoodsInfoController {
                         themeStoreGoodsInfo.basePrice = goods.basePrice
                         themeStoreGoodsInfo.realPrice = goods.basePrice
                         themeStoreGoodsInfo.picId = goods.picId
+                        themeStoreGoodsInfo.letter = goods.letter
                         themeStoreGoodsInfo.status = 1 as Short
                         themeStoreGoodsInfo.px = 1//to be modify
                         themeStoreGoodsInfo.save flush: true

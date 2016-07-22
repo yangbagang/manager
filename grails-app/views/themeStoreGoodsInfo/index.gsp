@@ -243,24 +243,28 @@
                         '<input type="hidden" id="id" name="id" value="' + result.id + '">' +
                         '<input type="hidden" id="themeStoreId" name="themeStore.id" value="' + result.themeStore.id + '">' +
                         '<div class="form-group">' +
-                        '<label for="username">名称</label>' +
-                        '<input type="text" class="form-control" id="username" name="username" value="'+result.username+'">' +
+                        '<label for="name">名称</label>' +
+                        '<input type="text" class="form-control" id="name" name="name" value="'+result.name+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="realName">品牌</label>' +
-                        '<input type="text" class="form-control" id="realName" name="realName" value="'+result.realName+'">' +
+                        '<label for="letter">首字母</label>' +
+                        '<input type="text" class="form-control" id="letter" name="letter" value="'+result.letter+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="email">规格</label>' +
-                        '<input type="text" class="form-control" id="email" name="email" value="'+result.email+'">' +
+                        '<label for="brand">品牌</label>' +
+                        '<input type="text" class="form-control" id="brand" name="brand" value="'+result.brand+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="password">指导价格</label>' +
-                        '<input type="password" class="form-control" id="password" name="password" value="'+result.password+'">' +
+                        '<label for="specifications">规格</label>' +
+                        '<input type="text" class="form-control" id="specifications" name="specifications" value="'+result.specifications+'">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="password">实际价格</label>' +
-                        '<input type="password" class="form-control" id="password" name="password" value="'+result.password+'">' +
+                        '<label for="basePrice">指导价格</label>' +
+                        '<input type="text" class="form-control" id="basePrice" name="basePrice" value="'+result.basePrice+'">' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="realPrice">实际价格</label>' +
+                        '<input type="text" class="form-control" id="realPrice" name="realPrice" value="'+result.realPrice+'">' +
                         '</div>' +
                         '<div class="form-group">' +
                         '<label for="status">状态</label>' +

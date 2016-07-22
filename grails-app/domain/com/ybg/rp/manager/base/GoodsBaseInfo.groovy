@@ -13,6 +13,7 @@ class GoodsBaseInfo {
     String specifications
     Float basePrice
     String picId
+    String letter
 
     String toString() {
         return "${brand}-${name}-${specifications}"
