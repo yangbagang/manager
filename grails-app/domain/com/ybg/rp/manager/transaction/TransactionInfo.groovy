@@ -9,7 +9,7 @@ class TransactionInfo {
     /**Charge ID*/
     String chargeId
     /**订单金额(元) */
-    Float orderMoney;
+    Float orderMoney
     /**订单号*/
     String orderNo
     /**支付类型  0 卡1、支付宝；2、微信*/

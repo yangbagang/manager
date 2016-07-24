@@ -48,4 +48,10 @@ class OrderInfo {
     Date quHuoTime
     Date peiSongTime
     String quHuoCode
+
+    transient String vmCode
+
+    String getVmCode() {
+        vendMachine?.machineCode
+    }
 }

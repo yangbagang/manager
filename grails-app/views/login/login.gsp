@@ -69,7 +69,7 @@
                         <g:if test="${jcaptcha.enabled &&
                             session.jcaptchaForLogin == null ? true : session.jcaptchaForLogin}">
                             <div class="input-group input-group-lg">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
                                 <input type="text" name="jcaptchaChallenge" class="form-control" placeholder="验证码">
                             </div>
                             <div class="clearfix"></div><br>

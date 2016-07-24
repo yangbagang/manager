@@ -21,4 +21,17 @@ class OrderDetail {
     Integer status//0 未取货 1 申请退款 2 已退款 3取货
     Short errorStatus//异常状态:0-正常 1-异常 2-已处理  默认0
     Double refundPrice//退款金额
+
+    transient String vmCode
+    transient Date createTime
+    transient String orderNo
+    String getVmCode() {
+        goods?.vendMachine?.machineCode
+    }
+    Date getCreateTime() {
+        order?.createTime
+    }
+    String getOrderNo() {
+        order?.orderNo
+    }
 }

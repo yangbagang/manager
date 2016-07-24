@@ -154,21 +154,11 @@
                             </ul>
                         </li>
                         <li class="accordion">
-                            <a href="#"><i class="glyphicon glyphicon-user"></i><span> 统计分析</span></a>
+                            <a href="#"><i class="glyphicon glyphicon-user"></i><span> 实时数据</span></a>
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemUser')}">管理员设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemRole')}">角色设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemUserRole')}">权限设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemLog')}">系统日志</a></li>
-                            </ul>
-                        </li>
-                        <li class="accordion">
-                            <a href="#"><i class="glyphicon glyphicon-user"></i><span> 清分结算</span></a>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemUser')}">管理员设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemRole')}">角色设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemUserRole')}">权限设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemLog')}">系统日志</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/orderInfo')}">订单记录</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/orderDetail')}">商品记录</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/transactionInfo')}">支付记录</a></li>
                             </ul>
                         </li>
                     </ul>
