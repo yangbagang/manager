@@ -84,7 +84,7 @@
                         return "其它";
                     }
                 }, "orderable": true, "searchable": false },
-                { "title": "出货时间", "data" : "completeTime", "orderable": true, "searchable": false }
+                { "title": "完成时间", "data" : "completeTime", "orderable": true, "searchable": false }
             ],
             "language": {
                 "zeroRecords": "没有数据",
