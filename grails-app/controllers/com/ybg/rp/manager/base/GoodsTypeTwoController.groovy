@@ -75,4 +75,10 @@ class GoodsTypeTwoController {
         render result as JSON
     }
 
+    def listByTypeOne(Long typeOneId) {
+        def typeOne = GoodsTypeOne.get(typeOneId)
+        def list = GoodsTypeTwo.findAllByTypeOne(typeOne)
+
+        render list as JSON
+    }
 }

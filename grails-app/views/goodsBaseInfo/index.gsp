@@ -32,7 +32,29 @@
     <div id="msgInfo" class="box-content alerts"></div>
     <table class="table table-striped table-bordered search_table" id="dataTable"></table>
 </div>
+
+<div class="box-inner">
+    <div class="box-header well" data-original-title="">
+        <h2 id="typeTitleInfo"><i class="glyphicon glyphicon-user"></i> 商品分类信息</h2>
+        <div class="box-icon">
+            <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                    class="glyphicon glyphicon-chevron-up"></i></a>
+            <a href="#" class="btn btn-close btn-round btn-default"><i
+                    class="glyphicon glyphicon-remove"></i></a>
+        </div>
+    </div>
 </div>
+<div class="box-content">
+    <form class="form-inline" role="form" action="#">
+        <div class="form-group">
+            选择大类<select id="typeOneId" name="typeOneId" onchange="loadTypeTwo()"></select>
+            选择小类<select id="typeTwoId" name="typeTwoId"></select>
+            <input type="button" value="添加分类" onclick="addTypeInfo()">
+        </div>
+    </form><br />
+    <table class="table table-striped table-bordered search_table" id="typeTable"></table>
+</div>
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
 
@@ -44,8 +66,10 @@
 </div>
 <script>
     var gridTable;
+    var typeTable;
+    var goodsId = 0;
     $(document).ready(function(){
-        var table=$('#dataTable').DataTable({
+        gridTable=$('#dataTable').DataTable({
             "bLengthChange": true,
             "bFilter": false,
             "lengthMenu": [10, 20, 50, 100],
@@ -75,8 +99,8 @@
                             '<i class="glyphicon glyphicon-edit icon-white"></i></a>&nbsp;&nbsp;' +
                             '<a class="btn btn-danger" href="javascript:removeInfo('+data.id+');" title="删除">' +
                             '<i class="glyphicon glyphicon-trash icon-white"></i></a>&nbsp;&nbsp' +
-                            '<a class="btn btn-info" href="javascript:editTypeInfo('+data.id+');" title="分类">' +
-                            '<i class="glyphicon glyphicon-edit icon-white"></i></a>;';
+                            '<a class="btn btn-info" href="javascript:editTypeInfo('+data.id+',\''+data.name+'\');" title="分类">' +
+                            '<i class="glyphicon glyphicon-edit icon-white"></i></a>';
                 }, "orderable": false, "searchable": false }
             ],
             "language": {
@@ -95,12 +119,54 @@
                 }
             }
         });
-        gridTable = table;
         //查询 重新加载
         $("#sercher").click(function(){
-            table.ajax.reload(null, false);
+            gridTable.ajax.reload(null, false);
+        });
+        typeTable=$('#typeTable').DataTable({
+            "bLengthChange": true,
+            "bFilter": false,
+            "paginate": false,
+            "processing": true,
+            "serverSide": true,
+            "bAutoWidth": true,
+            "ajax": {
+                "url":"goodsTypeInfo/list",
+                "dataSrc": "data",
+                "data": function ( d ) {
+                    //添加额外的参数传给服务器
+                    d.goodsId = goodsId;
+                }
+            },
+            "ordering": false, // 不排序
+            "columns": [
+                { "title": "ID", "data" : "id", "orderable": true, "searchable": false },
+                { "title": "商品名称", "data" : "goodsName", "orderable": false, "searchable": false },
+                { "title": "大类", "data" : "typeOneName", "orderable": false, "searchable": false },
+                { "title": "小类", "data" : "typeTwoName", "orderable": false, "searchable": false },
+                { "title": "操作", "data" : function (data) {
+                    return  '<a class="btn btn-danger" href="javascript:removeTypeInfo('+data.id+');" title="删除">' +
+                            '<i class="glyphicon glyphicon-trash icon-white"></i></a>';
+                }, "orderable": false, "searchable": false }
+            ],
+            "language": {
+                "zeroRecords": "没有数据",
+                "lengthMenu" : "_MENU_",
+                "info": "显示第 _START_ 至 _END_ 条记录，共 _TOTAL_ 条",
+                "loadingRecords": "加载中...",
+                "processing": "加载中...",
+                "infoFiltered": "",
+                "infoEmpty": "暂无记录",
+                "paginate": {
+                    "first": "首页",
+                    "last": "末页",
+                    "next": "下一页",
+                    "previous": "上一页"
+                }
+            }
         });
 
+        loadTypeOne();
     });
 
     function addInfo() {
@@ -298,4 +364,118 @@
         });
     }
 
+    function editTypeInfo(id, name) {
+        goodsId = id;
+        var info = '<i class="glyphicon glyphicon-user"></i> ' + name + '分类信息';
+        $("#typeTitleInfo").html(info);
+        typeTable.ajax.reload(null, false);
+    }
+
+    function loadTypeOne() {
+        var url = "../goodsTypeOne/list";
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: url,
+            data: "length=100&draw=1",
+            success: function (result) {
+                $("#typeOneId").empty();
+                $.each(result.data, function (index, item) {
+                    $("#typeOneId").append("<option value='"+item.id+"'>"+item.name+"</option>");
+                });
+            },
+            error: function (data) {
+                var errorContent = "" +
+                        '<div class="alert alert-danger">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        data.responseText +
+                        '</div>';
+                $("#msgInfo").html(errorContent);
+                $("#msgInfo").html(content).fadeIn(300).delay(2000).fadeOut(300);
+            }
+        });
+    }
+
+    function loadTypeTwo() {
+        var url = "../goodsTypeTwo/listByTypeOne";
+        var typeOne = $("#typeOneId").val();
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: url,
+            data: "typeOneId=" + typeOne,
+            success: function (result) {
+                $("#typeTwoId").empty();
+                $.each(result, function (index, item) {
+                    $("#typeTwoId").append("<option value='"+item.id+"'>"+item.name+"</option>");
+                });
+            },
+            error: function (data) {
+                var errorContent = "" +
+                        '<div class="alert alert-danger">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        data.responseText +
+                        '</div>';
+                $("#msgInfo").html(errorContent);
+                $("#msgInfo").html(content).fadeIn(300).delay(2000).fadeOut(300);
+            }
+        });
+    }
+
+    function addTypeInfo() {
+        if (goodsId == 0) {
+            return;//没有选择商品
+        }
+        var url = "../goodsTypeInfo/save";
+        var typeTwo = $("#typeTwoId").val();
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: url,
+            data: "goodsId=" + goodsId + "&typeTwoId=" + typeTwo,
+            success: function (result) {
+                var isSuccess = result.success;
+                var errorMsg = result.msg;
+                var content = "";
+                typeTable.ajax.reload(null, false);
+            },
+            error: function(data) {
+                alert(data.responseText);
+            }
+        });
+    }
+
+    function removeTypeInfo(id) {
+        var content = "" +
+                '<div class="modal-header">' +
+                '<button type="button" class="close" data-dismiss="modal">×</button>' +
+                '<h3>提示</h3>' +
+                '</div>' +
+                '<div class="modal-body">' +
+                '<p>删除后信息将无法恢复,是否继续?</p>' +
+                '</div>' +
+                '<div class="modal-footer">' +
+                '<a href="#" class="btn btn-default" data-dismiss="modal">取消</a>' +
+                '<a href="javascript:postAjaxRemoveType('+id+');" class="btn btn-primary">删除</a>' +
+                '</div>';
+        $("#modal-content").html("");
+        $("#modal-content").html(content);
+        $('#myModal').modal('show');
+    }
+
+    function postAjaxRemoveType(id) {
+        var url = "../goodsTypeInfo/delete/" + id;
+        $.ajax({
+            type: "DELETE",
+            dataType: "json",
+            url: url,
+            success: function (result) {
+                $("#myModal").modal('hide');
+                typeTable.ajax.reload(null, false);
+            },
+            error: function (data) {
+                alert(data.responseText);
+            }
+        });
+    }
 </script>
