@@ -64,6 +64,7 @@ dependencies {
     compile "com.octo.captcha:jcaptcha:1.0"
     compile "com.octo.captcha:jcaptcha-api:1.0"
     compile "com.google.guava:guava:14.0.1"
+    compile 'org.grails.plugins:quartz:2.0.9'
 }
 
 task wrapper(type: Wrapper) {
