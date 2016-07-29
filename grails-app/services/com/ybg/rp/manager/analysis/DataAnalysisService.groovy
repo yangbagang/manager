@@ -28,7 +28,11 @@ class DataAnalysisService {
             }
         }
         //循环处理数据
-        for (OrderDetail detail: result.resultList) {
+        for (OrderDetail detail: result) {
+            if (DataAnalysis.findByDetailId(detail.id)) {
+                //己经计算过了,不再重复计算。
+                continue
+            }
             //准备数据
             def order = detail.order
             def tran = TransactionInfo.findByOrderNo(order.orderNo)
@@ -40,6 +44,7 @@ class DataAnalysisService {
             def typeTwo = GoodsTypeInfo.findByGoodsBaseInfo(goods).goodsTypeTwo
             //实例化
             def dataAnalysis = new DataAnalysis()
+            dataAnalysis.detailId = detail.id
             //主题店数据
             dataAnalysis.themeStoreId = store.id
             dataAnalysis.themeStoreName = store.name

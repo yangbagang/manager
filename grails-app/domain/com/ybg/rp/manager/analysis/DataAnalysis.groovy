@@ -35,6 +35,7 @@ class DataAnalysis {
         payAccount nullable: true
     }
 
+    Long detailId//防重复
     //主题店
     Long themeStoreId
     String themeStoreName

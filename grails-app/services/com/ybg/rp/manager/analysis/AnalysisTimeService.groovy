@@ -3,7 +3,7 @@ package com.ybg.rp.manager.analysis
 import grails.transaction.Transactional
 
 @Transactional
-class AyalysisTimeService {
+class AnalysisTimeService {
 
     static DATA_ANALYSIS_KEY = "DATA_ANALYSIS_KEY"
 

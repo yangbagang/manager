@@ -1,6 +1,6 @@
 package com.ybg.rp.manager.job
 
-import com.ybg.rp.manager.analysis.AyalysisTimeService
+import com.ybg.rp.manager.analysis.AnalysisTimeService
 
 class DataAnalysisJobJob {
 
@@ -17,12 +17,12 @@ class DataAnalysisJobJob {
 
     def execute() {
         //开始时间
-        def lastTime = analysisTimeService.getLastTime(AyalysisTimeService.DATA_ANALYSIS_KEY)
+        def lastTime = analysisTimeService.getLastTime(AnalysisTimeService.DATA_ANALYSIS_KEY)
         //结束时间
         def now = new Date()
         //开始分析
         dataAnalysisService.analysis(lastTime, now)
         //更新时间
-        analysisTimeService.updateLastTime(AyalysisTimeService.DATA_ANALYSIS_KEY, now)
+        analysisTimeService.updateLastTime(AnalysisTimeService.DATA_ANALYSIS_KEY, now)
     }
 }
