@@ -213,10 +213,11 @@
     }
 
     function showInfo(id) {
-        var url = "../partnerBaseInfo/show/" + id;
+        var url = '${createLink(controller: "partnerBaseInfo", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var content = "" +
                         '<div class="modal-header">' +
@@ -323,10 +324,11 @@
     }
 
     function editInfo(id) {
-        var url = "../partnerBaseInfo/show/" + id;
+        var url = '${createLink(controller: "partnerBaseInfo", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var content = "" +
                         '<div class="modal-header">' +
@@ -461,11 +463,12 @@
     }
 
     function postAjaxRemove(id) {
-        var url = "../partnerBaseInfo/delete/" + id;
+        var url = '${createLink(controller: "partnerBaseInfo", action: "delete")}';
         $.ajax({
             type: "DELETE",
             dataType: "json",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
@@ -502,7 +505,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../partnerBaseInfo/save";
+        var url = '${createLink(controller: "partnerBaseInfo", action: "save")}';
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -543,7 +546,7 @@
     }
 
     function loadAreaList(targetSelectObj, level, pname, defaultValue) {
-        var url = "../baseAreaInfo/listArea";
+        var url = '${createLink(controller: "baseAreaInfo", action: "listArea")}';
         $.ajax({
             type: "post",
             dataType: "json",

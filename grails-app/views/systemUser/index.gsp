@@ -145,7 +145,7 @@
     }
 
     function showInfo(id) {
-        var url = "../systemUser/show/" + id;
+        var url = '${createLink(controller: "", action: "")}systemUser/show/';
         $.ajax({
             type: "GET",
             url: url,

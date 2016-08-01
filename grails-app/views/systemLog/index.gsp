@@ -86,10 +86,11 @@
     });
 
     function showInfo(id) {
-        var url = "../systemLog/show/" + id;
+        var url = '${createLink(controller: "systemLog", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var content = "" +
                         '<div class="modal-header">' +

@@ -213,10 +213,11 @@
     }
 
     function editInfo(id) {
-        var url = "../goodsBaseInfo/show/" + id;
+        var url = '${createLink(controller: "goodsBaseInfo", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var content = "" +
                         '<div class="modal-header">' +
@@ -285,11 +286,12 @@
     }
 
     function postAjaxRemove(id) {
-        var url = "../goodsBaseInfo/delete/" + id;
+        var url = '${createLink(controller: "goodsBaseInfo", action: "delete")}';
         $.ajax({
             type: "DELETE",
             dataType: "json",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
@@ -325,7 +327,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../goodsBaseInfo/save";
+        var url = '${createLink(controller: "goodsBaseInfo", action: "save")}';
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -372,7 +374,7 @@
     }
 
     function loadTypeOne() {
-        var url = "../goodsTypeOne/list";
+        var url = '${createLink(controller: "goodsTypeOne", action: "list")}';
         $.ajax({
             type: "get",
             dataType: "json",
@@ -397,7 +399,7 @@
     }
 
     function loadTypeTwo() {
-        var url = "../goodsTypeTwo/listByTypeOne";
+        var url = '${createLink(controller: "goodsTypeTwo", action: "listByTypeOne")}';
         var typeOne = $("#typeOneId").val();
         $.ajax({
             type: "get",
@@ -426,7 +428,7 @@
         if (goodsId == 0) {
             return;//没有选择商品
         }
-        var url = "../goodsTypeInfo/save";
+        var url = '${createLink(controller: "goodsTypeInfo", action: "save")}';
         var typeTwo = $("#typeTwoId").val();
         $.ajax({
             type: "POST",
@@ -464,11 +466,12 @@
     }
 
     function postAjaxRemoveType(id) {
-        var url = "../goodsTypeInfo/delete/" + id;
+        var url = '${createLink(controller: "goodsTypeInfo", action: "delete")}';
         $.ajax({
             type: "DELETE",
             dataType: "json",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 $("#myModal").modal('hide');
                 typeTable.ajax.reload(null, false);

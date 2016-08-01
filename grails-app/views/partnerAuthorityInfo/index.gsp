@@ -132,10 +132,11 @@
     }
 
     function editInfo(id) {
-        var url = "../partnerAuthorityInfo/show/" + id;
+        var url = '${createLink(controller: "partnerAuthorityInfo", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var content = "" +
                         '<div class="modal-header">' +
@@ -192,11 +193,12 @@
     }
 
     function postAjaxRemove(id) {
-        var url = "../partnerAuthorityInfo/delete/" + id;
+        var url = '${createLink(controller: "partnerAuthorityInfo", action: "delete")}';
         $.ajax({
             type: "DELETE",
             dataType: "json",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
@@ -232,7 +234,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../partnerAuthorityInfo/save";
+        var url = '${createLink(controller: "partnerAuthorityInfo", action: "save")}';
         $.ajax({
             type: "POST",
             dataType: "json",

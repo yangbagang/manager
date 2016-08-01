@@ -147,11 +147,12 @@
     }
 
     function postAjaxRemove(userId, roleId) {
-        var url = "../partnerUserAuthority/delete?userId=" + userId + "&roleId=" + roleId;
+        var url = '${createLink(controller: "partnerUserAuthority", action: "delete")}';
         $.ajax({
             type: "DELETE",
             dataType: "json",
             url: url,
+            data: "userId=" + userId + "&roleId=" + roleId,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
@@ -188,7 +189,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../partnerUserAuthority/addUserRole";
+        var url = '${createLink(controller: "partnerUserAuthority", action: "addUserRole")}';
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -229,7 +230,7 @@
     }
 
     function loadUserList() {
-        var url = "../partnerUserInfo/listPartnerUsers";
+        var url = '${createLink(controller: "partnerUserInfo", action: "listPartnerUsers")}';
         $.ajax({
             type: "get",
             dataType: "json",
@@ -253,7 +254,7 @@
     }
 
     function loadRoleList() {
-        var url = "../partnerAuthorityInfo/listPartnerAuthoritys";
+        var url = '${createLink(controller: "partnerAuthorityInfo", action: "listPartnerAuthoritys")}';
         $.ajax({
             type: "get",
             dataType: "json",

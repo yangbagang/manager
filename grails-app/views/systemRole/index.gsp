@@ -137,10 +137,11 @@
     }
 
     function showInfo(id) {
-        var url = "../systemRole/show/" + id;
+        var url = '${createLink(controller: "systemRole", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var content = "" +
                         '<div class="modal-header">' +
@@ -193,10 +194,11 @@
     }
 
     function editInfo(id) {
-        var url = "../systemRole/show/" + id;
+        var url = '${createLink(controller: "systemRole", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var content = "" +
                         '<div class="modal-header">' +
@@ -253,11 +255,12 @@
     }
 
     function postAjaxRemove(id) {
-        var url = "../systemRole/delete/" + id;
+        var url = '${createLink(controller: "systemRole", action: "delete")}';
         $.ajax({
             type: "DELETE",
             dataType: "json",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
@@ -293,7 +296,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../systemRole/save";
+        var url = '${createLink(controller: "systemRole", action: "save")}';
         $.ajax({
             type: "POST",
             dataType: "json",

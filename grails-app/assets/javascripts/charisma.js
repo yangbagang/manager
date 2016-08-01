@@ -2,6 +2,7 @@ $(document).ready(function () {
     //themes, change CSS with JS
     //default theme(CSS) is cerulean, change it if needed
     var defaultTheme = 'cerulean';
+    var webroot = "/manager/";
 
     var currentTheme = $.cookie('currentTheme') == null ? defaultTheme : $.cookie('currentTheme');
     var msie = navigator.userAgent.match(/msie/i);
@@ -45,7 +46,7 @@ $(document).ready(function () {
         if (themeName == 'classic') {
             $('#bs-css').attr('href', 'bower_components/bootstrap/dist/css/bootstrap.min.css');
         } else {
-            $('#bs-css').attr('href', '../assets/bootstrap-' + themeName + '.min.css');
+            $('#bs-css').attr('href', webroot+'assets/bootstrap-' + themeName + '.min.css');
         }
 
         $('#themes i').removeClass('glyphicon glyphicon-ok whitespace').addClass('whitespace');

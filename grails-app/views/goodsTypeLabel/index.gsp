@@ -132,10 +132,11 @@
     }
 
     function editInfo(id) {
-        var url = "../goodsTypeLabel/show/" + id;
+        var url = '${createLink(controller: "goodsTypeLabel", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var content = "" +
                         '<div class="modal-header">' +
@@ -192,11 +193,12 @@
     }
 
     function postAjaxRemove(id) {
-        var url = "../goodsTypeLabel/delete/" + id;
+        var url = '${createLink(controller: "goodsTypeLabel", action: "delete")}';
         $.ajax({
             type: "DELETE",
             dataType: "json",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
@@ -233,7 +235,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../goodsTypeLabel/save";
+        var url = '${createLink(controller: "goodsTypeLabel", action: "save")}';
         $.ajax({
             type: "POST",
             dataType: "json",

@@ -10,12 +10,12 @@
     <asset:stylesheet id="bs-css" src="bootstrap-cerulean.min.css" />
 
     <asset:stylesheet src="charisma-app.css" />
-    <link href='static/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
-    <link href='static/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print'>
-    <link href='static/bower_components/chosen/chosen.min.css' rel='stylesheet'>
-    <link href='static/bower_components/colorbox/example3/colorbox.css' rel='stylesheet'>
-    <link href='static/bower_components/responsive-tables/responsive-tables.css' rel='stylesheet'>
-    <link href='static/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css' rel='stylesheet'>
+    <link href='${resource(dir: "bower_components/fullcalendar/dist", file: "fullcalendar.css")}' rel='stylesheet'>
+    <link href='${resource(dir: "bower_components/fullcalendar/dist", file: "fullcalendar.print.css")}' rel='stylesheet' media='print'>
+    <link href='${resource(dir: "bower_components/chosen", file: "chosen.min.css")}' rel='stylesheet'>
+    <link href='${resource(dir: "bower_components/colorbox/example3", file: "colorbox.css")}' rel='stylesheet'>
+    <link href='${resource(dir: "bower_components/responsive-tables", file: "responsive-tables.css")}' rel='stylesheet'>
+    <link href='${resource(dir: "bower_components/bootstrap-tour/build/css", file: "bootstrap-tour.min.css")}' rel='stylesheet'>
     <asset:stylesheet src="jquery.noty.css" />
     <asset:stylesheet src="noty_theme_default.css" />
     <asset:stylesheet src="elfinder.min.css" />
@@ -26,7 +26,7 @@
     <asset:stylesheet src="jquery.dataTables.min.css" />
 
     <!-- jQuery -->
-    <script src="static/bower_components/jquery/jquery.min.js"></script>
+    <script src="${resource(dir: "bower_components/jquery", file: "jquery.min.js")}"></script>
     <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <asset:javascript src="html5.js" />
@@ -225,24 +225,24 @@
 </div><!--/.fluid-container-->
 
 <!-- external javascript -->
-<script src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="${resource(dir: "bower_components/bootstrap/dist/js", file: "bootstrap.min.js")}"></script>
 <!-- library for cookie management -->
 <asset:javascript src="jquery.cookie.js" />
 <!-- calender plugin -->
-<script src='static/bower_components/moment/min/moment.min.js'></script>
-<script src='static/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
+<script src='${resource(dir: "bower_components/moment/min", file: "moment.min.js")}'></script>
+<script src='${resource(dir: "bower_components/fullcalendar/dist", file: "fullcalendar.min.js")}'></script>
 <!-- data table plugin -->
 <asset:javascript src="jquery.dataTables.min.js" />
 <!-- select or dropdown enhancer -->
-<script src="static/bower_components/chosen/chosen.jquery.min.js"></script>
+<script src="${resource(dir: "bower_components/chosen", file: "chosen.jquery.min.js")}"></script>
 <!-- plugin for gallery image view -->
-<script src="static/bower_components/colorbox/jquery.colorbox-min.js"></script>
+<script src="${resource(dir: "bower_components/colorbox", file: "jquery.colorbox-min.js")}"></script>
 <!-- notification plugin -->
 <asset:javascript src="jquery.noty.js" />
 <!-- library for making tables responsive -->
-<script src="static/bower_components/responsive-tables/responsive-tables.js"></script>
+<script src="${resource(dir: "bower_components/responsive-tables", file: "responsive-tables.js")}"></script>
 <!-- tour plugin -->
-<script src="static/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+<script src="${resource(dir: "bower_components/bootstrap-tour/build/js", file: "bootstrap-tour.min.js")}"></script>
 <!-- star rating plugin -->
 <asset:javascript src="jquery.raty.min.js" />
 <!-- for iOS style toggle switch -->

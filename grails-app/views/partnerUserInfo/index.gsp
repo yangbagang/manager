@@ -151,10 +151,11 @@
     }
 
     function showInfo(id) {
-        var url = "../partnerUserInfo/show/" + id;
+        var url = '${createLink(controller: "partnerUserInfo", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var checkFlag = result.enabled ? 'checked="checked"' : '';
                 var content = "" +
@@ -209,10 +210,11 @@
     }
 
     function editInfo(id) {
-        var url = "../partnerUserInfo/show/" + id;
+        var url = '${createLink(controller: "partnerUserInfo", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var checkFlag = result.enabled ? 'checked="checked"' : '';
                 var content = "" +
@@ -283,11 +285,12 @@
     }
 
     function postAjaxRemove(id) {
-        var url = "../partnerUserInfo/delete/" + id;
+        var url = '${createLink(controller: "partnerUserInfo", action: "delete")}';
         $.ajax({
             type: "DELETE",
             dataType: "json",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
@@ -323,7 +326,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../partnerUserInfo/save";
+        var url = '${createLink(controller: "partnerUserInfo", action: "save")}';
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -363,7 +366,7 @@
     }
 
     function loadPartnerList(defaultValue) {
-        var url = "../partnerBaseInfo/listPartners";
+        var url = '${createLink(controller: "partnerBaseInfo", action: "listPartners")}';
         $.ajax({
             type: "get",
             dataType: "json",
