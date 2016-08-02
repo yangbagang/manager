@@ -98,7 +98,7 @@
             }
         });
         gridTable = table;
-        loadThmeStores();
+        loadThemeStores();
         //查询 重新加载
         $("#themeStoreId").change(function () {
             table.ajax.reload(null, false);
@@ -143,10 +143,11 @@
     }
 
     function showInfo(id) {
-        var url = "../vendMachineInfo/show/" + id;
+        var url = '${createLink(controller: "vendMachineInfo", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var themeStoreName = $("#themeStoreId").find("option:selected").text();
                 var content = "" +
@@ -189,10 +190,11 @@
     }
 
     function editInfo(id) {
-        var url = "../vendMachineInfo/show/" + id;
+        var url = '${createLink(controller: "vendMachineInfo", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var themeStoreName = $("#themeStoreId").find("option:selected").text();
                 var content = "" +
@@ -259,7 +261,7 @@
     }
 
     function postAjaxRemove(id) {
-        var url = "../vendMachineInfo/delete/" + id;
+        var url = '${createLink(controller: "vendMachineInfo", action: "delete")}/' + id;
         $.ajax({
             type: "DELETE",
             dataType: "json",
@@ -299,7 +301,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../vendMachineInfo/save";
+        var url = '${createLink(controller: "vendMachineInfo", action: "save")}';
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -338,8 +340,8 @@
         });
     }
 
-    function loadThmeStores() {
-        var url = "../themeStoreBaseInfo/listThemeStores";
+    function loadThemeStores() {
+        var url = '${createLink(controller: "themeStoreBaseInfo", action: "listThemeStores")}';
         $.ajax({
             type: "get",
             dataType: "json",

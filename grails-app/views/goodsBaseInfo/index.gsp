@@ -286,12 +286,11 @@
     }
 
     function postAjaxRemove(id) {
-        var url = '${createLink(controller: "goodsBaseInfo", action: "delete")}';
+        var url = '${createLink(controller: "goodsBaseInfo", action: "delete")}/' + id;
         $.ajax({
             type: "DELETE",
             dataType: "json",
             url: url,
-            data: "id=" + id,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
@@ -466,12 +465,11 @@
     }
 
     function postAjaxRemoveType(id) {
-        var url = '${createLink(controller: "goodsTypeInfo", action: "delete")}';
+        var url = '${createLink(controller: "goodsTypeInfo", action: "delete")}/' + id;
         $.ajax({
             type: "DELETE",
             dataType: "json",
             url: url,
-            data: "id=" + id,
             success: function (result) {
                 $("#myModal").modal('hide');
                 typeTable.ajax.reload(null, false);

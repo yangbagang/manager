@@ -103,10 +103,11 @@
     });
 
     function editInfo(id, name) {
-        var url = "../themeStoreOfPartner/show?themeStoreId=" + id;
+        var url = '${createLink(controller: "themeStoreOfPartner", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "themeStoreId=" + id,
             success: function (result) {
                 var hiddenId = "";
                 var defValue = 0;
@@ -176,11 +177,12 @@
     }
 
     function postAjaxRemove(themeStoreId) {
-        var url = "../themeStoreOfPartner/delete?themeStoreId=" + themeStoreId;
+        var url = '${createLink(controller: "themeStoreOfPartner", action: "delete")}';
         $.ajax({
             type: "DELETE",
             dataType: "json",
             url: url,
+            data: "themeStoreId=" + themeStoreId,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
@@ -217,7 +219,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../themeStoreOfPartner/save";
+        var url = '${createLink(controller: "themeStoreOfPartner", action: "save")}';
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -258,7 +260,7 @@
     }
 
     function loadPartnerList(defaultValue) {
-        var url = "../partnerBaseInfo/listPartners";
+        var url = '${createLink(controller: "partnerBaseInfo", action: "listPartners")}';
         $.ajax({
             type: "get",
             dataType: "json",
