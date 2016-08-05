@@ -65,7 +65,7 @@
                 { "title": "规格", "data" : "goodsSpec", "orderable": true, "searchable": false },
                 { "title": "数量", "data" : "goodsNum", "orderable": true, "searchable": false },
                 { "title": "单价", "data" : "buyPrice", "orderable": true, "searchable": false },
-                { "title": "是否支付", "data" : function (data) {
+                { "title": "状态", "data" : function (data) {
                     if (data.status == 0) {
                         return "未出货";
                     } else if (data.status == 1) {
