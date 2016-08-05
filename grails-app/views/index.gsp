@@ -126,12 +126,12 @@
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a class="ajax-link" href="${createLink(uri: '/partnerBaseInfo')}">基本信息</a></li>
                                 <li><a class="ajax-link" href="${createLink(uri: '/partnerUserInfo')}">登录账号</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/partnerAuthorityInfo')}">角色设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/partnerUserAuthority')}">权限设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/systemUserRole')}">收益设置</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/partnerAccount')}">结算信息</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/partnerAccountLog')}">结算记录</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/partnerUserOperationLog')}">操作记录</a></li>
+                                %{--<li><a class="ajax-link" href="${createLink(uri: '/partnerAuthorityInfo')}">角色设置</a></li>--}%
+                                %{--<li><a class="ajax-link" href="${createLink(uri: '/partnerUserAuthority')}">权限设置</a></li>--}%
+                                %{--<li><a class="ajax-link" href="${createLink(uri: '/systemUserRole')}">收益设置</a></li>--}%
+                                %{--<li><a class="ajax-link" href="${createLink(uri: '/partnerAccount')}">结算信息</a></li>--}%
+                                %{--<li><a class="ajax-link" href="${createLink(uri: '/partnerAccountLog')}">结算记录</a></li>--}%
+                                %{--<li><a class="ajax-link" href="${createLink(uri: '/partnerUserOperationLog')}">操作记录</a></li>--}%
                             </ul>
                         </li>
                         <li class="accordion">
@@ -148,7 +148,6 @@
                             <a href="#"><i class="glyphicon glyphicon-user"></i><span> 机器设备</span></a>
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a class="ajax-link" href="${createLink(uri: '/vendMachineInfo')}">设备管理</a></li>
-                                <li><a class="ajax-link" href="${createLink(uri: '/vendLayerTrackGoods')}">商品管理</a></li>
                                 <li><a class="ajax-link" href="${createLink(uri: '/vendMachineInfoErrorInfo')}">轨道错误</a></li>
                                 <li><a class="ajax-link" href="${createLink(uri: '/vendMachineInfo/list2')}">离线设备</a></li>
                             </ul>

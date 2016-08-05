@@ -463,12 +463,11 @@
     }
 
     function postAjaxRemove(id) {
-        var url = '${createLink(controller: "partnerBaseInfo", action: "delete")}';
+        var url = '${createLink(controller: "partnerBaseInfo", action: "delete")}/' + id;
         $.ajax({
             type: "DELETE",
             dataType: "json",
             url: url,
-            data: "id=" + id,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;

@@ -101,10 +101,11 @@
     });
 
     function editInfo(id) {
-        var url = "../themeStoreBaseInfo/show?buildingId=" + id;
+        var url = '${createLink(controller: "themeStoreBaseInfo", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "buildingId=" + id,
             success: function (result) {
                 var content = "" +
                         '<div class="modal-header">' +
@@ -180,7 +181,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../themeStoreBaseInfo/save";
+        var url = '${createLink(controller: "themeStoreBaseInfo", action: "save")}';
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -221,7 +222,7 @@
     }
 
     function loadAreaList(targetSelectObj, level, pname, defaultValue) {
-        var url = "../baseAreaInfo/listArea";
+        var url = '${createLink(controller: "baseAreaInfo", action: "listArea")}';
         $.ajax({
             type: "post",
             dataType: "json",

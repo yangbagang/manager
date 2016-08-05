@@ -146,11 +146,12 @@
     }
 
     function postAjaxRemove(adminId, roleId) {
-        var url = "../systemUserRole/delete?adminId=" + adminId + "&roleId=" + roleId;
+        var url = '${createLink(controller: "systemUserRole", action: "delete")}';
         $.ajax({
             type: "DELETE",
             dataType: "json",
             url: url,
+            data: "adminId=" + adminId + "&roleId=" + roleId,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
@@ -187,7 +188,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../systemUserRole/addUserRole";
+        var url = '${createLink(controller: "systemUserRole", action: "addUserRole")}';
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -228,7 +229,7 @@
     }
 
     function loadUserList() {
-        var url = "../systemUser/list";
+        var url = '${createLink(controller: "systemUser", action: "list")}';
         $.ajax({
             type: "get",
             dataType: "json",
@@ -253,7 +254,7 @@
     }
 
     function loadRoleList() {
-        var url = "../systemRole/list";
+        var url = '${createLink(controller: "systemRole", action: "list")}';
         $.ajax({
             type: "get",
             dataType: "json",

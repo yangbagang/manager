@@ -145,10 +145,11 @@
     }
 
     function showInfo(id) {
-        var url = '${createLink(controller: "", action: "")}systemUser/show/';
+        var url = '${createLink(controller: "systemUser", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var checkFlag = result.enabled ? 'checked="checked"' : '';
                 var content = "" +
@@ -197,10 +198,11 @@
     }
 
     function editInfo(id) {
-        var url = "../systemUser/show/" + id;
+        var url = '${createLink(controller: "systemUser", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var checkFlag = result.enabled ? 'checked="checked"' : '';
                 var content = "" +
@@ -266,7 +268,7 @@
     }
 
     function postAjaxRemove(id) {
-        var url = "../systemUser/delete/" + id;
+        var url = '${createLink(controller: "systemUser", action: "delete")}/' + id;
         $.ajax({
             type: "DELETE",
             dataType: "json",
@@ -306,7 +308,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../systemUser/save";
+        var url = '${createLink(controller: "systemUser", action: "save")}';
         $.ajax({
             type: "POST",
             dataType: "json",

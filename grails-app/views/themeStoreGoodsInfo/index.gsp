@@ -102,7 +102,7 @@
         $("#themeStoreId").change(function () {
             table.ajax.reload(null, false);
         });
-        loadThmeStores();
+        loadThemeStores();
     });
 
     function importGoodsInfo() {
@@ -171,10 +171,11 @@
     }
 
     function showInfo(id) {
-        var url = "../themeStoreGoodsInfo/show/" + id;
+        var url = '${createLink(controller: "themeStoreGoodsInfo", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var themeStoreName = $("#themeStoreId").text();
                 var content = "" +
@@ -227,10 +228,11 @@
     }
 
     function editInfo(id) {
-        var url = "../themeStoreGoodsInfo/show/" + id;
+        var url = '${createLink(controller: "themeStoreGoodsInfo", action: "show")}';
         $.ajax({
             type: "GET",
             url: url,
+            data: "id=" + id,
             success: function (result) {
                 var themeStoreName = $("#themeStoreId").text();
                 var content = "" +
@@ -309,7 +311,7 @@
     }
 
     function postAjaxRemove(id) {
-        var url = "../themeStoreGoodsInfo/delete/" + id;
+        var url = '${createLink(controller: "themeStoreGoodsInfo", action: "delete")}/' + id;
         $.ajax({
             type: "DELETE",
             dataType: "json",
@@ -349,7 +351,7 @@
     }
 
     function postAjaxForm() {
-        var url = "../themeStoreGoodsInfo/save";
+        var url = '${createLink(controller: "themeStoreGoodsInfo", action: "save")}';
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -389,7 +391,7 @@
     }
 
     function importGoodsForm() {
-        var url = "../themeStoreGoodsInfo/importGoods";
+        var url = '${createLink(controller: "themeStoreGoodsInfo", action: "importGoods")}';
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -428,8 +430,8 @@
         });
     }
 
-    function loadThmeStores() {
-        var url = "../themeStoreBaseInfo/listThemeStores";
+    function loadThemeStores() {
+        var url = '${createLink(controller: "themeStoreBaseInfo", action: "listThemeStores")}';
         $.ajax({
             type: "get",
             dataType: "json",
