@@ -25,21 +25,21 @@ class ThemeStoreGoodsInfoController {
         if (themeStoreId == null) {
             themeStoreId = 1
         }
-        def c = new DetachedCriteria(ThemeStoreGoodsInfo).build{
-            eq "themeStore.id", themeStoreId
+        def c = ThemeStoreGoodsInfo.createCriteria()
+        def result = c.list(params) {
+            themeStore {
+                eq("id", themeStoreId)
+            }
         }
-        def d = c.list(params)
-        def data = d
-        def count = d.size()
 
-        def result = new AjaxPagingVo()
-        result.data = data
-        result.draw = Integer.valueOf(params.draw)
-        result.error = ""
-        result.success = true
-        result.recordsTotal = count
-        result.recordsFiltered = count
-        render result as JSON
+        def vo = new AjaxPagingVo()
+        vo.data = result.resultList
+        vo.draw = Integer.valueOf(params.draw)
+        vo.error = ""
+        vo.success = true
+        vo.recordsTotal = result.totalCount
+        vo.recordsFiltered = result.totalCount
+        render vo as JSON
     }
 
     def show(ThemeStoreGoodsInfo themeStoreGoodsInfo) {

@@ -26,7 +26,7 @@
         <div class="form-group">
             <label class="control-label" for="themeStoreId">选择主题店:</label>
             <select class="form-control" id="themeStoreId" name="themeStoreId"></select>
-            <input type="button" class="btn btn-primary" value="查询" id="sercher"/>
+            <input type="button" class="btn btn-primary" value="查询" id="search"/>
         </div>
     </form><br />
     <div id="msgInfo" class="box-content alerts"></div>
@@ -102,6 +102,10 @@
         $("#themeStoreId").change(function () {
             table.ajax.reload(null, false);
         });
+        $("#search").click(function () {
+            table.ajax.reload(null, false);
+        });
+
         loadThemeStores();
     });
 
