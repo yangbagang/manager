@@ -4,13 +4,13 @@
             <a href="#">合作伙伴</a>
         </li>
         <li>
-            <a href="#">权限设置</a>
+            <a href="#">范围设置</a>
         </li>
     </ul>
 </div>
 <div class="box-inner">
     <div class="box-header well" data-original-title="">
-        <h2><i class="glyphicon glyphicon-user"></i> 权限设置</h2>
+        <h2><i class="glyphicon glyphicon-user"></i> 范围设置</h2>
         <div class="box-icon">
             <a href="javascript:addInfo();" class="btn btn-plus btn-round btn-default"><i
                     class="glyphicon glyphicon-plus"></i></a>
@@ -56,7 +56,7 @@
             "serverSide": true,
             "bAutoWidth": true,
             "ajax": {
-                "url":"partnerUserAuthority/list",
+                "url":"partnerUserStore/list",
                 "dataSrc": "data",
                 "data": function ( d ) {
                     //添加额外的参数传给服务器
@@ -67,9 +67,9 @@
             "columns": [
                 { "title": "合作伙伴", "data" : "partnerName", "orderable": false, "searchable": false },
                 { "title": "姓名", "data" : "userName", "orderable": false, "searchable": false },
-                { "title": "角色", "data" : "roleName", "orderable": false, "searchable": false },
+                { "title": "主题店", "data" : "storeName", "orderable": false, "searchable": false },
                 { "title": "操作", "data" : function (data) {
-                    return '<a class="btn btn-danger" href="javascript:removeInfo('+data.userId+','+data.roleId+');" title="删除">' +
+                    return '<a class="btn btn-danger" href="javascript:removeInfo('+data.userId+','+data.storeId+');" title="删除">' +
                             '<i class="glyphicon glyphicon-trash icon-white"></i></a>';
                 }, "orderable": false, "searchable": false }
             ],
@@ -101,7 +101,7 @@
         var content = "" +
                 '<div class="modal-header">' +
                 '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                '<h3>分配权限</h3>' +
+                '<h3>分配主题店</h3>' +
                 '</div>' +
                 '<div class="modal-body">' +
                 '<form id="infoForm" role="form">' +
@@ -110,9 +110,9 @@
                 '<select id="userId" name="userId" data-rel="chosen"></select>' +
                 '</div>' +
                 '<div class="control-group">' +
-                '<label class="control-label" for="roleList">角色</label>' +
+                '<label class="control-label" for="roleList">主题店</label>' +
                 '<div class="controls">' +
-                '<select id="roleList" name="roleList" multiple class="form-control" data-rel="chosen"></select>' +
+                '<select id="storeList" name="storeList" multiple class="form-control" data-rel="chosen"></select>' +
                 '</div>' +
                 '</div>' +
                 '</form>' +
@@ -125,10 +125,12 @@
         $("#modal-content").html(content);
         $('#myModal').modal('show');
         loadUserList();
-        loadRoleList();
+        $('#userId').change(function(){
+            loadStoreList();
+        });
     }
 
-    function removeInfo(adminId, roleId) {
+    function removeInfo(userId, storeId) {
         var content = "" +
                 '<div class="modal-header">' +
                 '<button type="button" class="close" data-dismiss="modal">×</button>' +
@@ -139,20 +141,20 @@
                 '</div>' +
                 '<div class="modal-footer">' +
                 '<a href="#" class="btn btn-default" data-dismiss="modal">取消</a>' +
-                '<a href="javascript:postAjaxRemove('+adminId+','+roleId+');" class="btn btn-primary">删除</a>' +
+                '<a href="javascript:postAjaxRemove('+userId+','+storeId+');" class="btn btn-primary">删除</a>' +
                 '</div>';
         $("#modal-content").html("");
         $("#modal-content").html(content);
         $('#myModal').modal('show');
     }
 
-    function postAjaxRemove(userId, roleId) {
-        var url = '${createLink(controller: "partnerUserAuthority", action: "delete")}';
+    function postAjaxRemove(userId, storeId) {
+        var url = '${createLink(controller: "partnerUserStore", action: "delete")}';
         $.ajax({
             type: "POST",
             dataType: "json",
             url: url,
-            data: "userId=" + userId + "&roleId=" + roleId,
+            data: "userId=" + userId + "&storeId=" + storeId,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
@@ -189,7 +191,7 @@
     }
 
     function postAjaxForm() {
-        var url = '${createLink(controller: "partnerUserAuthority", action: "addUserRole")}';
+        var url = '${createLink(controller: "partnerUserStore", action: "addUserStore")}';
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -253,16 +255,17 @@
         });
     }
 
-    function loadRoleList() {
-        var url = '${createLink(controller: "partnerAuthorityInfo", action: "listPartnerAuthoritys")}';
+    function loadStoreList() {
+        var userId = $('#userId').val();
+        var url = '${createLink(controller: "partnerUserStore", action: "listStores")}?userId=' + userId;
         $.ajax({
             type: "get",
             dataType: "json",
             url: url,
             success: function (result) {
-                $("#roleList").empty();
+                $("#storeList").empty();
                 $.each(result, function (index, item) {
-                    $("#roleList").append("<option value='"+item.id+"'>"+item.name+"</option>");
+                    $("#storeList").append("<option value='"+item.id+"'>"+item.name+"</option>");
                 });
             },
             error: function (data) {

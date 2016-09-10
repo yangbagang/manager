@@ -1,5 +1,6 @@
 package com.ybg.rp.manager.partner
 
+import com.ybg.rp.manager.themeStore.ThemeStoreOfPartner
 import com.ybg.rp.manager.vo.AjaxPagingVo
 import grails.converters.JSON
 
@@ -7,7 +8,7 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
-class PartnerUserAuthorityController {
+class PartnerUserStoreController {
 
     static allowedMethods = [save: "POST", delete: "POST"]
 
@@ -16,14 +17,14 @@ class PartnerUserAuthorityController {
     }
 
     def list() {
-        def c = PartnerUserAuthority.createCriteria()
+        def c = PartnerUserStore.createCriteria()
         def name = params.name ?: ""
         def data = c.list(params) {
             or {
                 user {
                     like("realName", "%"+name+"%")
                 }
-                authority {
+                store {
                     like("name", "%"+name+"%")
                 }
             }
@@ -39,18 +40,18 @@ class PartnerUserAuthorityController {
         render result as JSON
     }
 
-    def show(PartnerUserAuthority partnerUserAuthority) {
-        render partnerUserAuthority as JSON
+    def show(PartnerUserStore partnerUserStore) {
+        render partnerUserStore as JSON
     }
 
     @Transactional
-    def addUserRole(Long userId) {
+    def addUserStore(Long userId) {
         def result = [:]
 
-        if (userId && params.roleList) {
-            for(String roleId in params.roleList) {
-                if(!PartnerUserAuthority.exists(userId, Long.valueOf(roleId))) {
-                    PartnerUserAuthority.create(userId, Long.valueOf(roleId))
+        if (userId && params.storeList) {
+            for(String storeId in params.storeList) {
+                if(!PartnerUserStore.exists(userId, Long.valueOf(storeId))) {
+                    PartnerUserStore.create(userId, Long.valueOf(storeId))
                 }
             }
         }
@@ -61,21 +62,30 @@ class PartnerUserAuthorityController {
     }
 
     @Transactional
-    def delete(Long userId, Long roleId) {
+    def delete(Long userId, Long storeId) {
+        println "userId=${userId}, storeId=${storeId}"
         def result = [:]
-        def partnerUserAuthority = PartnerUserAuthority.get(userId, roleId)
-        if (partnerUserAuthority == null) {
+        def partnerUserStore = PartnerUserStore.get(userId, storeId)
+        if (partnerUserStore == null) {
             result.success = false
-            result.msg = "partnerUserAuthority is null."
+            result.msg = "partnerUserStore is null."
             render result as JSON
             return
         }
 
-        partnerUserAuthority.delete flush:true
+        partnerUserStore.delete flush:true
 
         result.success = true
         result.msg = ""
         render result as JSON
     }
 
+    def listStores(Long userId) {
+        def stores = []
+        def user = PartnerUserInfo.get(userId)
+        if (user && user.parnterBaseInfo) {
+            stores = ThemeStoreOfPartner.findAllByPartner(user.parnterBaseInfo)*.baseInfo
+        }
+        render stores as JSON
+    }
 }

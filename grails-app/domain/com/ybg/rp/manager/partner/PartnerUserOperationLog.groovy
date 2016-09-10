@@ -23,4 +23,10 @@ class PartnerUserOperationLog {
     Integer targetNum
     /** 操作的结果 */
     Short result
+
+    transient String userName
+
+    String getUserName() {
+        user?.realName
+    }
 }

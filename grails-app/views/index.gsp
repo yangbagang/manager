@@ -126,12 +126,13 @@
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a class="ajax-link" href="${createLink(uri: '/partnerBaseInfo')}">基本信息</a></li>
                                 <li><a class="ajax-link" href="${createLink(uri: '/partnerUserInfo')}">登录账号</a></li>
-                                %{--<li><a class="ajax-link" href="${createLink(uri: '/partnerAuthorityInfo')}">角色设置</a></li>--}%
-                                %{--<li><a class="ajax-link" href="${createLink(uri: '/partnerUserAuthority')}">权限设置</a></li>--}%
+                                <li><a class="ajax-link" href="${createLink(uri: '/partnerAuthorityInfo')}">角色设置</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/partnerUserAuthority')}">权限设置</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/partnerUserStore')}">范围设置</a></li>
                                 %{--<li><a class="ajax-link" href="${createLink(uri: '/systemUserRole')}">收益设置</a></li>--}%
                                 %{--<li><a class="ajax-link" href="${createLink(uri: '/partnerAccount')}">结算信息</a></li>--}%
                                 %{--<li><a class="ajax-link" href="${createLink(uri: '/partnerAccountLog')}">结算记录</a></li>--}%
-                                %{--<li><a class="ajax-link" href="${createLink(uri: '/partnerUserOperationLog')}">操作记录</a></li>--}%
+                                <li><a class="ajax-link" href="${createLink(uri: '/partnerUserOperationLog')}">操作记录</a></li>
                             </ul>
                         </li>
                         <li class="accordion">
