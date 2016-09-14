@@ -41,7 +41,7 @@ class DataAnalysisService {
             def partner = ThemeStoreOfPartner.findByBaseInfo(store).partner
             def storeGoods = detail.goods.goods
             def goods = GoodsBaseInfo.get(storeGoods.baseId)
-            def typeTwo = GoodsTypeInfo.findByGoodsBaseInfo(goods).goodsTypeTwo
+            def typeTwo = GoodsTypeInfo.findByGoodsBaseInfo(goods)?.goodsTypeTwo
             //实例化
             def dataAnalysis = new DataAnalysis()
             dataAnalysis.detailId = detail.id

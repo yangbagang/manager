@@ -154,6 +154,12 @@
                             </ul>
                         </li>
                         <li class="accordion">
+                            <a href="#"><i class="glyphicon glyphicon-user"></i><span> 营销管理</span></a>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a class="ajax-link" href="${createLink(uri: '/coupon')}">优惠卷</a></li>
+                            </ul>
+                        </li>
+                        <li class="accordion">
                             <a href="#"><i class="glyphicon glyphicon-user"></i><span> 实时数据</span></a>
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a class="ajax-link" href="${createLink(uri: '/orderInfo')}">订单记录</a></li>
