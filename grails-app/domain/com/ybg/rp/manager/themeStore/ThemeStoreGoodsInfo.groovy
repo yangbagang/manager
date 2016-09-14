@@ -1,8 +1,5 @@
 package com.ybg.rp.manager.themeStore
 
-import com.ybg.rp.manager.base.GoodsTypeOne
-import com.ybg.rp.manager.base.GoodsTypeTwo
-
 class ThemeStoreGoodsInfo {
 
     static belongsTo = [themeStore: ThemeStoreBaseInfo]
@@ -22,4 +19,5 @@ class ThemeStoreGoodsInfo {
     Short status
     Integer px
     String letter
+    Short yhEnable = 0//是否可以有优惠
 }

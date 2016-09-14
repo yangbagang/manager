@@ -72,6 +72,9 @@
                 { "title": "是否在售", "data" : function (data) {
                     return data.status == 1 ? "在售" : "停售";
                 }, "orderable": false, "searchable": false},
+                { "title": "是否优惠", "data" : function (data) {
+                    return data.yhEnable == 1 ? "是" : "否";
+                }, "orderable": false, "searchable": false},
                 { "title": "操作", "data" : function (data) {
                     return '<a class="btn btn-success" href="javascript:showInfo('+data.id+');" title="查看">' +
                             '<i class="glyphicon glyphicon-zoom-in icon-white"></i></a>&nbsp;&nbsp;' +
@@ -279,6 +282,13 @@
                         '<option value="0">停售</option>' +
                         '</select>' +
                         '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="yhEnable">是否参加优惠</label>' +
+                        '<select class="form-control" id="yhEnable" name="yhEnable">' +
+                        '<option value="1">是</option>' +
+                        '<option value="0">否</option>' +
+                        '</select>' +
+                        '</div>' +
                         '</form>' +
                         '</div>' +
                         '<div class="modal-footer">' +
@@ -289,6 +299,7 @@
                 $("#modal-content").html(content);
                 $('#myModal').modal('show');
                 $('#status').val(result.status);
+                $('#yhEnable').val(result.yhEnable);
             },
             error: function (data) {
                 showErrorInfo(data.responseText);
