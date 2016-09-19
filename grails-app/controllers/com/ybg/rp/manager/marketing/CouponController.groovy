@@ -16,16 +16,19 @@ class CouponController {
     }
 
     def list() {
-        def data = Coupon.list(params)
-        def count = Coupon.count()
+        def name = params.name ?: ""
+        def c = Coupon.createCriteria()
+        def data = c.list(params) {
+            like("code", "%"+name+"%")
+        }
 
         def result = new AjaxPagingVo()
         result.data = data
         result.draw = Integer.valueOf(params.draw)
         result.error = ""
         result.success = true
-        result.recordsTotal = count
-        result.recordsFiltered = count
+        result.recordsTotal = data.totalCount
+        result.recordsFiltered = data.totalCount
         render result as JSON
     }
 
@@ -103,6 +106,13 @@ class CouponController {
                 zero += "0"
             }
         }
-        prefix + zero + v
+        prefix + zero + v + getRandomInt()
+    }
+
+    private String getRandomInt() {
+        def random = new Random()
+        def num1 = random.nextInt(10)
+        def num2 = random.nextInt(10)
+        return "${num1}${num2}"
     }
 }

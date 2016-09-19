@@ -28,22 +28,22 @@
         </div>
     </form><br />
     <label class="control-label" for="prefix">前缀:</label>
-    <input type="text" id="prefix" value="000000" size="8">
+    <input type="text" id="prefix" value="0000" size="4">
     <label class="control-label" for="type">类型:</label>
     <select id="type"><option value="1">满减</option><option value="2">折扣</option></select>
     <label class="control-label" for="begin">开始号码:</label>
     <input type="text" id="begin" size="4" value="1">
     <label class="control-label" for="end">结束号码:</label>
-    <input type="text" id="end" size="4" value="999">
+    <input type="text" id="end" size="4" value="9999">
     <label class="control-label" for="length">位数:</label>
-    <input type="text" id="length" size="1" value="3">
+    <input type="text" id="length" size="1" value="4">
     <label class="control-label" for="minMoney">最小金额:</label>
     <input type="text" id="minMoney" size="3" value="100">
     <label class="control-label" for="yhMoney">抵扣金额:</label>
     <input type="text" id="yhMoney" size="3" value="10">
     <label class="control-label" for="discount">折扣:</label>
     <input type="text" id="discount" size="3" value="0.8">
-    <input type="button" class="btn btn-primary" value="批量添加" onclick="postAjaxForm()"/>
+    <input type="button" class="btn btn-primary" value="批量生成" onclick="postAjaxForm()"/>
     <div id="msgInfo" class="box-content alerts"></div>
     <table class="table table-striped table-bordered search_table" id="dataTable"></table>
 </div>
