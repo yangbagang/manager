@@ -18,6 +18,7 @@ class OrderInfo {
         quHuoCode nullable: true
         peiSongTime nullable: true
         quHuoTime nullable: true
+        yhCode nullable: true
     }
 
     VendMachineInfo vendMachine
@@ -48,6 +49,7 @@ class OrderInfo {
     Date quHuoTime
     Date peiSongTime
     String quHuoCode
+    String yhCode = "" //优惠卷号码
 
     transient String vmCode
 
