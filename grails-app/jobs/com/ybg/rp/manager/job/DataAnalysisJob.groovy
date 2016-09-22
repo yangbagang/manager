@@ -11,15 +11,14 @@ class DataAnalysisJob {
 
     def dataAnalysisService
 
-    static delay = 1000l * 60 * 1//延迟执行,5分钟后开始执行任务。
-    static repeatInterval = 1000l * 60 * 1 //执行频率,10分钟执行一次。
+    static delay = 1000l * 60 * 5//延迟执行,5分钟后开始执行任务。
+    static repeatInterval = 1000l * 60 * 10 //执行频率,10分钟执行一次。
 
     static triggers = {
         simple name: 'dataAnalysisTrigger', startDelay: delay, repeatInterval: repeatInterval
     }
 
     def execute() {
-        println "DataAnalysisJob"
         //开始时间
         def lastTime = analysisTimeService.getLastTime(AnalysisTimeService.DATA_ANALYSIS_KEY)
         //结束时间
