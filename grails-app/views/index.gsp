@@ -156,7 +156,7 @@
                         <li class="accordion">
                             <a href="#"><i class="glyphicon glyphicon-user"></i><span> 营销管理</span></a>
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a class="ajax-link" href="${createLink(uri: '/coupon')}">优惠卷</a></li>
+                                <li><a class="ajax-link" href="${createLink(uri: '/coupon')}">优惠券</a></li>
                             </ul>
                         </li>
                         <li class="accordion">

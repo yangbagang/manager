@@ -13,4 +13,15 @@ class Coupon {
     Float yhMoney = 0//具体减多少
     Short flag//是否有效
 
+    transient String humanType
+    transient String humanFlag
+
+    String getHumanType() {
+        type == 1 ? "满减" : "折扣"
+    }
+
+    String getHumanFlag() {
+        def valid = 1 as Short
+        flag == valid ? "有效" : "无效"
+    }
 }

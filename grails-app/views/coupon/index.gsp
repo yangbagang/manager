@@ -4,14 +4,16 @@
             <a href="#">营销管理</a>
         </li>
         <li>
-            <a href="#">优惠卷</a>
+            <a href="#">优惠券</a>
         </li>
     </ul>
 </div>
 <div class="box-inner">
     <div class="box-header well" data-original-title="">
-        <h2><i class="glyphicon glyphicon-user"></i> 优惠卷</h2>
+        <h2><i class="glyphicon glyphicon-user"></i> 优惠券</h2>
         <div class="box-icon">
+            <a href="${createLink(uri: '/coupon/exportExcel')}" target="_blank" class="btn btn-round btn-default"><i
+                    class="glyphicon glyphicon-file"></i></a>
             <a href="#" class="btn btn-minimize btn-round btn-default"><i
                     class="glyphicon glyphicon-chevron-up"></i></a>
             <a href="#" class="btn btn-close btn-round btn-default"><i
@@ -82,7 +84,7 @@
             "columns": [
                 { "title": "编号", "data" : "code", "orderable": true, "searchable": false },
                 { "title": "类型", "data" : function (data) {
-                    return data.type == 1 ? "满减卷" : "折扣卷";
+                    return data.type == 1 ? "满减券" : "折扣券";
                 }, "orderable": false, "searchable": false },
                 { "title": "折扣率", "data" : "discount", "orderable": true, "searchable": false },
                 { "title": "最小金额", "data" : "minMoney", "orderable": true, "searchable": false },

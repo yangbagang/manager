@@ -2,6 +2,7 @@ package com.ybg.rp.manager.marketing
 
 import com.ybg.rp.manager.vo.AjaxPagingVo
 import grails.converters.JSON
+import pl.touk.excel.export.WebXlsxExporter
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -115,4 +116,19 @@ class CouponController {
         def num2 = random.nextInt(10)
         return "${num1}${num2}"
     }
+
+    def exportExcel() {
+        //只导出有效的部分
+        def coupons = Coupon.findAllByFlag(1 as Short)
+        def headers = ['编号', '类型', '折扣', '最小金额', '优惠金额', '是否有效']
+        def withProperties = ['code', 'humanType', 'discount', 'minMoney', 'yhMoney', 'humanFlag']
+
+        new WebXlsxExporter().with {
+            setResponseHeaders(response)
+            fillHeader(headers)
+            add(coupons, withProperties)
+            save(response.outputStream)
+        }
+    }
+
 }

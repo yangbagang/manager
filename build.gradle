@@ -13,7 +13,7 @@ buildscript {
     }
 }
 
-version "1.0"
+version "1.1.1"
 group "manager"
 
 apply plugin:"eclipse"
@@ -31,6 +31,7 @@ ext {
 repositories {
     mavenLocal()
     maven { url "https://repo.grails.org/grails/core" }
+    maven { url "http://mvn.gt.igexin.com/nexus/content/repositories/releases/" }
 }
 
 dependencyManagement {
@@ -65,6 +66,9 @@ dependencies {
     compile "com.octo.captcha:jcaptcha-api:1.0"
     compile "com.google.guava:guava:14.0.1"
     compile 'org.grails.plugins:quartz:2.0.9'
+    compile 'org.grails.plugins:excel-export:2.0.1'
+    compile "com.gexin.platform:gexin-rp-sdk-http:4.0.1.2"
+    compile "com.gexin.platform:gexin-rp-sdk-template:4.0.0.5"
 }
 
 task wrapper(type: Wrapper) {

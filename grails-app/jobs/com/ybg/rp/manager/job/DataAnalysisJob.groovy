@@ -2,20 +2,24 @@ package com.ybg.rp.manager.job
 
 import com.ybg.rp.manager.analysis.AnalysisTimeService
 
-class DataAnalysisJobJob {
+/**
+ * Created by yangbagang on 2016/9/22.
+ */
+class DataAnalysisJob {
 
     def analysisTimeService
 
     def dataAnalysisService
 
-    static delay = 1000l * 60 * 5//延迟执行,5分钟后开始执行任务。
-    static repeatInterval = 1000l * 60 * 10 //执行频率,10分钟执行一次。
+    static delay = 1000l * 60 * 1//延迟执行,5分钟后开始执行任务。
+    static repeatInterval = 1000l * 60 * 1 //执行频率,10分钟执行一次。
 
     static triggers = {
-      simple name: 'dataAnalysisTrigger', startDelay: delay, repeatInterval: repeatInterval
+        simple name: 'dataAnalysisTrigger', startDelay: delay, repeatInterval: repeatInterval
     }
 
     def execute() {
+        println "DataAnalysisJob"
         //开始时间
         def lastTime = analysisTimeService.getLastTime(AnalysisTimeService.DATA_ANALYSIS_KEY)
         //结束时间
@@ -25,4 +29,5 @@ class DataAnalysisJobJob {
         //更新时间
         analysisTimeService.updateLastTime(AnalysisTimeService.DATA_ANALYSIS_KEY, now)
     }
+
 }
