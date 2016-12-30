@@ -80,7 +80,8 @@ class CouponController {
     }
 
     @Transactional
-    def createWithPrefix(String prefix, int begin, int end, int length, int type, Float discount, Float minMoney, Float yhMoney) {
+    def createWithPrefix(String prefix, int begin, int end, int length, int type, Float discount, Float minMoney, Float yhMoney,
+                         Integer dayOfWeek, Integer dayOfMonth, Integer maxCount) {
         for (int i = begin; i <= end; i++) {
             def coupon = new Coupon()
             coupon.code = formatCode(prefix, i, length)
@@ -88,6 +89,9 @@ class CouponController {
             coupon.discount = discount
             coupon.minMoney = minMoney
             coupon.yhMoney = yhMoney
+            coupon.dayOfWeek = dayOfWeek
+            coupon.dayOfMonth = dayOfMonth
+            coupon.maxCount = maxCount
             coupon.flag = 1 as Short
             coupon.save(flush: true)
         }
@@ -120,8 +124,8 @@ class CouponController {
     def exportExcel() {
         //只导出有效的部分
         def coupons = Coupon.findAllByFlag(1 as Short)
-        def headers = ['编号', '类型', '折扣', '最小金额', '优惠金额', '是否有效']
-        def withProperties = ['code', 'humanType', 'discount', 'minMoney', 'yhMoney', 'humanFlag']
+        def headers = ['编号', '类型', '折扣', '最小金额', '优惠金额', '星期限定', '日期限定', '剩余次数', '是否有效']
+        def withProperties = ['code', 'humanType', 'discount', 'minMoney', 'yhMoney', 'dayOfWeek', 'dayOfMonth', 'maxCount', 'humanFlag']
 
         new WebXlsxExporter().with {
             setResponseHeaders(response)

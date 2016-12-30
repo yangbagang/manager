@@ -45,6 +45,54 @@
     <input type="text" id="yhMoney" size="3" value="10">
     <label class="control-label" for="discount">折扣:</label>
     <input type="text" id="discount" size="3" value="0.8">
+    <label class="control-label" for="dayOfWeek">星期限定:</label>
+    <select id="dayOfWeek">
+        <option value="0">不限</option>
+        <option value="1">周日</option>
+        <option value="2">周一</option>
+        <option value="3">周二</option>
+        <option value="4">周三</option>
+        <option value="5">周四</option>
+        <option value="6">周五</option>
+        <option value="7">周六</option>
+    </select>
+    <label class="control-label" for="dayOfMonth">日期限定:</label>
+    <select id="dayOfMonth">
+        <option value="0">不限</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
+        <option value="31">31</option>
+    </select>
+    <label class="control-label" for="maxCount">最大重用次数:</label>
+    <input type="text" id="maxCount" size="3" value="1">
     <input type="button" class="btn btn-primary" value="批量生成" onclick="postAjaxForm()"/>
     <div id="msgInfo" class="box-content alerts"></div>
     <table class="table table-striped table-bordered search_table" id="dataTable"></table>
@@ -89,6 +137,13 @@
                 { "title": "折扣率", "data" : "discount", "orderable": true, "searchable": false },
                 { "title": "最小金额", "data" : "minMoney", "orderable": true, "searchable": false },
                 { "title": "抵扣金额", "data" : "yhMoney", "orderable": true, "searchable": false },
+                { "title": "星期限定", "data" : function (data) {
+                    return data.dayOfWeek == 0 ? "不限" : data.dayOfWeek - 1
+                }, "orderable": false, "searchable": false },
+                { "title": "日期限定", "data" : function (data) {
+                    return data.dayOfMonth == 0 ? "不限" : data.dayOfMonth
+                }, "orderable": false, "searchable": false },
+                { "title": "剩余次数", "data" : "maxCount", "orderable": true, "searchable": false },
                 { "title": "状态", "data" : function (data) {
                     return data.flag == 1 ? "有效" : "无效";
                 }, "orderable": false, "searchable": false },
@@ -189,11 +244,14 @@
         var d = $("#discount").val();
         var m = $("#minMoney").val();
         var y = $("#yhMoney").val();
+        var dayOfWeek = $("#dayOfWeek").val();
+        var dayOfMonth = $("#dayOfMonth").val();
+        var maxCount = $("#maxCount").val();
         $.ajax({
             type: "POST",
             dataType: "json",
             url: url,
-            data: 'prefix='+p+'&begin='+b+'&end='+e+'&length='+l+'&type='+t+'&discount='+d+'&minMoney='+m+'&yhMoney='+y,
+            data: 'prefix='+p+'&begin='+b+'&end='+e+'&length='+l+'&type='+t+'&discount='+d+'&minMoney='+m+'&yhMoney='+y+'&dayOfWeek='+dayOfWeek+'&dayOfMonth='+dayOfMonth+'&maxCount='+maxCount,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
