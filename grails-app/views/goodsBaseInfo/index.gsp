@@ -68,6 +68,7 @@
     var gridTable;
     var typeTable;
     var goodsId = 0;
+    var serverPath = 'http://183.57.41.230/FileServer/file/';
     $(document).ready(function(){
         gridTable=$('#dataTable').DataTable({
             "bLengthChange": true,
@@ -93,7 +94,16 @@
                 { "title": "品牌", "data" : "brand", "orderable": true, "searchable": false },
                 { "title": "规格", "data" : "specifications", "orderable": true, "searchable": false },
                 { "title": "指导价格(元)", "data" : "basePrice", "orderable": true, "searchable": false },
-                { "title": "图片", "data" : "picId", "orderable": false, "searchable": false },
+                { "title": "图片", "data" : function (data) {
+                    var picPath = '';
+                    var picFileId = data.picId;
+                    if (picFileId != null && picFileId != "" && picFileId != "null" && picFileId != "NULL") {
+                        picPath = serverPath + 'preview/' + picFileId;
+                    } else {
+                        picPath = '/manager/assets/goods_default_pic.png';
+                    }
+                    return '<img src="' + picPath + '" width=44 height=44 onclick="selectGoodsPic('+data.id+')"/>';
+                }, "orderable": false, "searchable": false },
                 { "title": "操作", "data" : function (data) {
                     return  '<a class="btn btn-info" href="javascript:editInfo('+data.id+');" title="编辑">' +
                             '<i class="glyphicon glyphicon-edit icon-white"></i></a>&nbsp;&nbsp;' +
@@ -476,6 +486,95 @@
             },
             error: function (data) {
                 alert(data.responseText);
+            }
+        });
+    }
+
+    function selectGoodsPic(goodsId) {
+        var content = "" +
+                '<div class="modal-header">' +
+                '<button type="button" class="close" data-dismiss="modal">×</button>' +
+                '<h3>设置商品图片</h3>' +
+                '</div>' +
+                '<div class="modal-body">' +
+                '<form id="picForm" role="form" enctype="multipart/form-data" method="POST">' +
+                '<div class="form-group">' +
+                '<label for="name">图片</label>' +
+                '<input type="file" class="form-control" id="Filedata" name="Filedata" placeholder="图片">' +
+                '</div>' +
+                '</form>' +
+                '</div>' +
+                '<div class="modal-footer">' +
+                '<div class="alert alert-danger" id="uploadMsgDiv"></div>' +
+                '<a href="#" class="btn btn-default" data-dismiss="modal">关闭</a>' +
+                '<a href="javascript:postAjaxPic('+goodsId+');" class="btn btn-primary">上传</a>' +
+                '</div>';
+        $("#modal-content").html("");
+        $("#modal-content").html(content);
+        $('#myModal').modal('show');
+    }
+
+    function postAjaxPic(goodsId) {
+        var url = serverPath + 'upload';
+        var data = new FormData($("#picForm")[0]);
+        data.append('folder', 'goodsPic');
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: url,
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                if (result.status == 200) {
+                    updateGoodsPic(goodsId, result.fid);
+                } else {
+                    $("#uploadMsgDiv").html(result.message);
+                }
+            },
+            error: function(data) {
+                $("#uploadMsgDiv").html(data.responseText);
+            }
+        });
+    }
+
+    function updateGoodsPic(goodsId, picId) {
+        var url = '${createLink(controller: "goodsBaseInfo", action: "savePic")}';
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: url,
+            data: 'goodsId='+ goodsId + '&picId=' + picId,
+            success: function (result) {
+                var isSuccess = result.success;
+                var errorMsg = result.msg;
+                var content = "";
+                if (isSuccess) {
+                    content = "" +
+                            '<div class="alert alert-success">' +
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                            '操作完成' +
+                            '</div>';
+                } else {
+                    content = "" +
+                            '<div class="alert alert-danger">' +
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                            JSON.stringify(errorMsg) +
+                            '</div>';
+                }
+                $("#myModal").modal('hide');
+                gridTable.ajax.reload(null, false);
+                $("#msgInfo").html(content).fadeIn(300).delay(2000).fadeOut(300);
+            },
+            error: function(data) {
+                var errorContent = "" +
+                        '<div class="alert alert-danger">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        data.responseText +
+                        '</div>';
+                $("#msgInfo").html(errorContent);
+                $("#msgInfo").html(content).fadeIn(300).delay(2000).fadeOut(300);
             }
         });
     }

@@ -75,4 +75,22 @@ class GoodsBaseInfoController {
         render result as JSON
     }
 
+    @Transactional
+    def savePic(Long goodsId, String picId) {
+        def result = [:]
+        def goodsBaseInfo = GoodsBaseInfo.get(goodsId)
+        if (goodsBaseInfo == null) {
+            result.success = false
+            result.msg = "goodsBaseInfo is null."
+            render result as JSON
+            return
+        }
+
+        goodsBaseInfo.picId = picId
+        goodsBaseInfo.save flush: true
+
+        result.success = true
+        result.msg = ""
+        render result as JSON
+    }
 }
