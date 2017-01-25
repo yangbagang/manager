@@ -62,7 +62,7 @@
                 { "title": "下单时间", "data" : "createTime", "orderable": true, "searchable": false },
                 { "title": "状态", "data" :function (data) {
                     if (data.isCancel == 0) {
-                        return "未取消";
+                        return "正常";
                     } else if (data.isCancel == 1) {
                         return "手动取消";
                     } else if (data.isCancel == 2) {

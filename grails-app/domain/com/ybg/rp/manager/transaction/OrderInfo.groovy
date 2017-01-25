@@ -28,7 +28,7 @@ class OrderInfo {
     /** 付款状态  */
     Short payStatus = 0 as Short //0:未付款 1:已付款
     /** 订单渠道 */
-    Short orderWay = 1 as Short  //0:线下 1:微信 2:WEB 3:APP
+    Short orderWay = 0 as Short  //0:线下 1:微信 2:WEB 3:APP
     /** 发货状态 */
     Short deliveryStatus = 0 as Short   //0:未发货 1:出货成功 2:出货失败
     /** 支付方式 */

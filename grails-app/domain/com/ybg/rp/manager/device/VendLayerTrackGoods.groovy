@@ -35,4 +35,13 @@ class VendLayerTrackGoods {
     Short workStatus
 
     Short isCabinet
+
+    transient String goodsName
+    transient String machineCode
+    String getGoodsName() {
+        goods?.name
+    }
+    String getMachineCode() {
+        vendMachine?.machineCode
+    }
 }

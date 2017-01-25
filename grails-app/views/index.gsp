@@ -167,6 +167,12 @@
                                 <li><a class="ajax-link" href="${createLink(uri: '/transactionInfo')}">支付记录</a></li>
                             </ul>
                         </li>
+                        <li class="accordion">
+                            <a href="#"><i class="glyphicon glyphicon-user"></i><span> 测试</span></a>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a class="ajax-link" href="${createLink(uri: '/orderInfo/test')}">订单测试</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>

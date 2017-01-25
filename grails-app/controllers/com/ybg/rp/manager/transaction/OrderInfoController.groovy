@@ -11,7 +11,13 @@ class OrderInfoController {
 
     static allowedMethods = [save: "POST", delete: "DELETE"]
 
+    def orderInfoService
+
     def index() {
+        //render html for ajax
+    }
+
+    def test() {
         //render html for ajax
     }
 
@@ -75,4 +81,15 @@ class OrderInfoController {
         render result as JSON
     }
 
+    @Transactional
+    def createOrder(Long vendLayerId) {
+        def result = [:]
+        if (vendLayerId) {
+            orderInfoService.createOrder(vendLayerId)
+        }
+
+        result.success = true
+        result.msg = ""
+        render result as JSON
+    }
 }

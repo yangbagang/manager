@@ -32,7 +32,6 @@
     <div id="msgInfo" class="box-content alerts"></div>
     <table class="table table-striped table-bordered search_table" id="dataTable"></table>
 </div>
-</div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
 
