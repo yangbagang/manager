@@ -88,7 +88,7 @@ class DataAnalysisService {
             dataAnalysis.completeHour = cal.get(Calendar.HOUR_OF_DAY)
             dataAnalysis.dayInWeek = cal.get(Calendar.DAY_OF_WEEK)
             dataAnalysis.weekInYear = cal.get(Calendar.WEEK_OF_YEAR)
-            dataAnalysis.payAccount = tran.payAccount
+            dataAnalysis.payAccount = tran? tran.payAccount : ""
             //插入记录
             dataAnalysis.save flush: true
         }
