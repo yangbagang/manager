@@ -8,11 +8,11 @@ import java.text.SimpleDateFormat
 @Transactional
 class OrderInfoService {
 
-    def createOrder(Long vendLayerId) {
-        createOrderInfo(vendLayerId)
+    def createOrder(Long vendLayerId, Short payWay) {
+        createOrderInfo(vendLayerId, payWay)
     }
 
-    private createOrderInfo(Long vendLayerId) {
+    private createOrderInfo(Long vendLayerId, Short payWay) {
         def vendLayerTrackGoods = VendLayerTrackGoods.get(vendLayerId)
         if (vendLayerTrackGoods) {
             if (vendLayerTrackGoods.currentInventory > 0) {
@@ -23,7 +23,7 @@ class OrderInfoService {
                 orderInfo.payStatus = 1 as Short//己支付
                 orderInfo.orderWay = 0 as Short//线下购买
                 orderInfo.deliveryStatus = 1 as Short//己出货
-                orderInfo.payWay = 2 as Short//微信支付
+                orderInfo.payWay = payWay
                 orderInfo.createTime = new Date()
                 orderInfo.confirmTime = new Date()
                 orderInfo.completeTime = new Date()

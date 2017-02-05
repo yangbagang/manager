@@ -82,10 +82,10 @@ class OrderInfoController {
     }
 
     @Transactional
-    def createOrder(Long vendLayerId) {
+    def createOrder(Long vendLayerId, Short payWay) {
         def result = [:]
         if (vendLayerId) {
-            orderInfoService.createOrder(vendLayerId)
+            orderInfoService.createOrder(vendLayerId, payWay)
         }
 
         result.success = true

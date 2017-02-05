@@ -68,8 +68,10 @@
                 { "title": "当前库存", "data" : "currentInventory", "orderable": true, "searchable": false },
                 { "title": "最大库存", "data" : "largestInventory", "orderable": true, "searchable": false },
                 { "title": "操作", "data" :function (data) {
-                    return  '<a class="btn btn-info" href="javascript:createOrder('+data.id+');" title="生成订单">' +
-                            '<i class="glyphicon glyphicon-edit icon-white"></i></a>';
+                    return  '<a href="javascript:createOrder('+data.id+', 2);" title="生成微信订单">' +
+                            '<img src="/manager/assets/icon_weixin.png" width=33 height=33/></a>&nbsp;'+
+                            '<a href="javascript:createOrder('+data.id+', 1);" title="生成支付宝订单">' +
+                            '<img src="/manager/assets/icon_zhifubao.png" width=33 height=33/></a>';
                 }, "orderable": false, "searchable": false }
             ],
             "language": {
@@ -125,13 +127,13 @@
         });
     }
 
-    function createOrder(vendLayerId) {
+    function createOrder(vendLayerId, payWay) {
         var url = '${createLink(controller: "orderInfo", action: "createOrder")}';
         $.ajax({
             type: "POST",
             dataType: "json",
             url: url,
-            data: "vendLayerId=" + vendLayerId,
+            data: "vendLayerId=" + vendLayerId + "&payWay=" + payWay,
             success: function (result) {
                 var isSuccess = result.success;
                 var errorMsg = result.msg;
